@@ -1,0 +1,30 @@
+﻿<select class="form-control kama-select" style="width: 100%"
+        ng-options="item[obj.displayName] for item in obj.items"
+        ng-model="selected"
+        ng-change="change()"
+        ng-disabled="obj.checkDisability && obj.checkDisability()">
+    <option value="" selected="selected"></option>
+</select>
+
+<script>
+    /*
+        select2 bugs:
+            1. because angular ng-options create an empty option select2 selects
+               that empty option by default and unselect x shows up.
+            2. if depentent select didn't fill on init, when parent select a value
+               and child calls it's getlist method, nothing get selected.
+
+        both issues have nothing to do with select2 directly.
+        until these bugs get fixed use default html select.
+    */
+    if (true || /iP(od|hone)/i.test(window.navigator.userAgent) || /IEMobile/i.test(window.navigator.userAgent) || /Windows Phone/i.test(window.navigator.userAgent) || /BlackBerry/i.test(window.navigator.userAgent) || /BB10/i.test(window.navigator.userAgent) || /Android.*Mobile/i.test(window.navigator.userAgent)) {
+        //console.log('Your browser does not support select2');
+    } else {
+        $('.kama-select').select2({
+            theme: "bootstrap",
+            allowClear: true,
+            dir: "rtl",
+            placeholder: "یک مورد را انتخاب کنید"
+        });
+    }
+</script>

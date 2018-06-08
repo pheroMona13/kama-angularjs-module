@@ -1,0 +1,24 @@
+<div class="panel panel-default" ng-init="tab = 1; testText = 'Lorem ipsum dolor sit amet, duo dicat equidem ne, choro fabulas omnesque usu te. Te corpora consectetuer eum, sit ne mundi mucius delectus.'">
+    <div class="panel-heading">
+        <h3 class="panel-title">read more directive</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <label>memo:</label>
+                        <kama-read-more text="testText"></kama-read-more>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+        </div>
+    </div>
+</div>

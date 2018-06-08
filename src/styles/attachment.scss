@@ -1,0 +1,62 @@
+﻿.kama-attachment {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+
+    button {
+        min-width: 113px;
+    }
+}
+
+.attachment-download {
+    margin-right: 10px;
+    color: #337ab7;
+    cursor: pointer;
+
+    &:hover {
+        color: #23527c;
+    }
+}
+
+.attachment-remove {
+    margin-right: 5px;
+    color: #d9534f;
+    cursor: pointer;
+
+    &:hover {
+        color: #b3423f;
+    }
+}
+
+.attachment-state {
+    display: block;
+    margin-top: 10px;
+
+    .fa-hourglass-end {
+        position: relative;
+        color: darkblue;
+        margin-left: 5px;
+        top: 1px;
+    }
+
+    .fa-check {
+        position: relative;
+        color: forestgreen;
+        margin-left: 5px;
+        top: 1px;
+    }
+
+    .fa-close {
+        position: relative;
+        margin-right: 5px;
+        top: 2px;
+        font-size: 18px;
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            color: red;
+            opacity: 1;
+        }
+    }
+}

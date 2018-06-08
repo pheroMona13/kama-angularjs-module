@@ -1,0 +1,9 @@
+﻿<div class="kama-input-number" ng-class="{'border-red': model > max || model < min}">
+    {{model}} <span ng-show="isNumber(model)">{{unit}}</span>
+    <div ng-click="increase()" title="افزایش">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </div>
+    <div ng-click="decrease()" title="کاهش">
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
+    </div>
+</div>

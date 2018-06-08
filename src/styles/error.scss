@@ -1,0 +1,28 @@
+﻿.kama-errors {
+    column-count: 3;
+    margin-top: 15px;
+
+    p {
+        margin: 10px 0 0;
+
+        &:first-child {
+            margin: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .kama-errors {
+        column-count: 1;
+    }
+}
+
+@media screen and (min-width: 767px) and (max-width: 992px) {
+    .kama-errors {
+        column-count: 2;
+    }
+}

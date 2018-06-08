@@ -1,0 +1,27 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">attachment directive</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12" style="direction: rtl">
+                        <kama-attachment obj="example.attachment"></kama-attachment>
+                    </div>
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary" ng-click="example.load()">load</button>
+                        <button class="btn btn-success" ng-click="example.save()">save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">prevent directive</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <label>prevent number</label>
+                        <input type="text" class="form-control" ng-model="test1" kama-prevent="number" />
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>prevent letter</label>
+                        <input type="text" class="form-control" ng-model="test2" kama-prevent="letter" />
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>prevent !persian</label>
+                        <input type="text" class="form-control" ng-model="test3" kama-prevent="!persian" />
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>prevent [0-2a-cD-F] (custom regex)</label>
+                        <input type="text" class="form-control" ng-model="test4" kama-prevent="[0-2a-cD-F]" />
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+        </div>
+    </div>
+</div>

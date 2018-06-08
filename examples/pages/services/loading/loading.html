@@ -1,0 +1,66 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">alert service</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <label>timeout:</label>
+                        <input type="text" class="form-control" ng-model="example.timeout" placeholder="milliseconds">
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <button class="btn btn-sm btn-primary" ng-click="example.loading()">show loading</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}">
+                <pre>
+// show loading
+loadingService.show();
+
+// hide loading
+loadingService.hide();
+
+// hide loading after 2 seconds
+loadingService.hide(2000);
+</pre>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}">
+                <div class="form-group">
+                    <label>usage:</label>
+                    <pre>loadingService.actionName(timeout);</pre>
+                </div>
+
+                <label>actions:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>arguments</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>show</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>hide</td>
+                            <td>timeout=[number]</td>
+                            <td>default timeout is 200 milliseconds</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p>You should manually hide loading after you call show method. The hide method has a default 200 milliseconds timeout that you can overwrite by passing a number to it.</p>
+            </div>
+        </div>
+    </div>
+</div>

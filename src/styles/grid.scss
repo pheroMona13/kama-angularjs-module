@@ -1,0 +1,146 @@
+﻿@import 'variables.scss';
+
+.kama-grid-top {
+    background-color: $mainBackgroundColor;
+    color: $mainColor;
+    min-height: 35px;
+    line-height: 30px;
+    padding: 0;
+    border-radius: 4px 4px 0 0;
+
+    a:hover {
+        color: #FFF;
+        font-weight: bold;
+    }
+}
+
+.kama-grid-bottom {
+    background-color: $mainBackgroundColor;
+    color: $mainColor;
+    min-height: 35px;
+    line-height: 30px;
+    padding: 2px 0;
+    border-radius: 0 0 4px 4px;
+
+    a {
+        color: $mainColor;
+        text-decoration: none;
+
+        &:hover {
+            color: lighten($mainColor, 50%);
+            font-weight: bold;
+        }
+    }
+
+    select {
+        color: #000;
+        cursor: pointer;
+    }
+}
+
+.kama-total {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.kama-pagination {
+    text-align: center;
+    z-index: 3;
+
+    i {
+        font-size: 10px;
+        margin: 0 5px;
+        position: relative;
+        top: 1px;
+    }
+}
+
+.kama-page-size {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.kama-grid-table {
+    margin-bottom: 0;
+
+    table {
+        margin-bottom: 0;
+        padding: 0 2px;
+
+        th {
+            white-space: nowrap;
+        }
+
+        td {
+            overflow-wrap: break-word;
+            white-space: nowrap;
+        }
+    }
+
+    tbody tr:first-child td:nth-last-child(2) {
+        width: 100%;
+    }
+
+    tbody tr:first-child td:last-child {
+        border-top: 1px solid #ddd !important;
+        margin-top: -1px;
+    }
+
+    tbody tr:last-child td:last-child {
+        border-bottom: 1px solid #ddd !important;
+    }
+}
+
+.grid-action, .grid-action-header {
+    position: absolute;
+    left: 31px;
+}
+
+.grid-action-header {
+    color: #fff;
+}
+
+.grid-action-header.with-global-search {
+    height: 84px;
+}
+
+.grid-action {
+    padding: 0 4px 0 3px !important;
+    min-width: 36px;
+    border-top: none !important;
+    /*margin-top: -1px;*/
+    i {
+        font-size: 16px;
+        padding: 6.933px 3px 7px;
+        margin: 3px 1px;
+        cursor: pointer;
+        opacity: 0.5;
+    }
+}
+
+.grid-action-red:hover {
+    color: red;
+    opacity: 1;
+}
+
+.grid-action-blue:hover {
+    color: blue;
+    opacity: 1;
+}
+
+.grid-action-green:hover {
+    color: green;
+    opacity: 1;
+}
+
+fieldset[disabled] {
+    .grid-action i {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .kama-grid-table {
+        width: auto;
+    }
+}

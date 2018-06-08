@@ -1,0 +1,54 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">error directive</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="col-xs-12" style="direction: rtl">
+                        <kama-error errors="example.errors"></kama-error>
+                        <button class="btn btn-sm btn-danger" ng-click="example.displayErrors()" ng-disabled="example.errors.length">display errors</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}">
+                <pre>
+&lt;kama-error errors="sampleErrors"&gt;&lt;/kama-error&gt;
+</pre>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}">
+                <div class="form-group">
+                    <label>usage:</label>
+                    <pre>&lt;kama-error errors="sampleErrors"&gt;&lt;/kama-error&gt;</pre>
+                </div>
+
+                <label>scope properties:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>type</th>
+                            <th>required</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>errors</td>
+                            <td>array of strings</td>
+                            <td>true</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <label>notes:</label>
+                <p>You should assign an array to this directive through <i>errors</i> attribute, then you can push error messages to this array an the directive will display them in a bootstrap danger alert. Depend on width of user browser window, errors will show from 1 to 3 columns. If user click on <i>X</i> button error alert will hide and the assigned array will get empty.</p>
+            </div>
+        </div>
+    </div>
+</div>

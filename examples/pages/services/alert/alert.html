@@ -1,0 +1,125 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">alert service</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <label>timeout:</label>
+                        <input type="text" class="form-control" ng-model="example.timeout">
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>message:</label>
+                        <textarea class="form-control" rows="4" ng-model="example.message"></textarea>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>multiple alerts:</label>
+                        <button type="button" class="btn btn-sm btn-success" ng-click="example.alert('success')">alertService.success()</button>
+                        <button type="button" class="btn btn-sm btn-info" ng-click="example.alert('info')">alertService.info()</button>
+                        <button type="button" class="btn btn-sm btn-warning" ng-click="example.alert('warning')">alertService.warning()</button>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="example.alert('error')">alertService.error()</button>
+                    </div>
+                    <div class="col-xs-12">
+                        <label>unique alerts:</label>
+                        <button type="button" class="btn btn-sm btn-success" ng-click="example.alert('unique-success')">alertService.success()</button>
+                        <button type="button" class="btn btn-sm btn-info" ng-click="example.alert('unique-info')">alertService.info()</button>
+                        <button type="button" class="btn btn-sm btn-warning" ng-click="example.alert('unique-warning')">alertService.warning()</button>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="example.alert('unique-error')">alertService.error()</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}">
+                <pre>
+// simple alert
+alertService.success('متن تست');
+
+// unique alert
+alertService.info('متن تست', { unique: true });
+
+// custom timeout
+alertService.warning('متن تست', { timeout: 10000 });
+</pre>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}">
+                <div class="form-group">
+                    <label>usage:</label>
+                    <pre>alertService.actionName(message, options);</pre>
+                </div>
+
+                <label>actions:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>arguments</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>success, info, warning, error</td>
+                            <td>message=[string], options=[object]</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <label>arguments:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>type</th>
+                            <th>default value</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>sould be a string to display as an alert. if it's a falsy value alert won't show.</td>
+                        </tr>
+                        <tr>
+                            <td>options</td>
+                            <td>object</td>
+                            <td>{}</td>
+                            <td>you can pass an optional object as options.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <label>options:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>type</th>
+                            <th>default value</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>unique</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>if unique set to be true, multiple call of that alert display only one alert.</td>
+                        </tr>
+                        <tr>
+                            <td>timeout</td>
+                            <td>number</td>
+                            <td>5000</td>
+                            <td>
+                                time that alert shows before it disappears, in milliseconds.<br>
+                                if set to -1 alert never disappears.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

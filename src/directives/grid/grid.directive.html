@@ -1,0 +1,89 @@
+<div class="kama-grid-top" ng-if="!obj.hideHeader">
+    <a href="" class="btn btn-link" style="text-decoration: none; color: #e0e3e6" ng-click="obj.add()"><i class="fa fa-plus" aria-hidden="true" style="position: relative; top: 2px;"></i> افزودن</a>
+</div>
+<div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.actions.length * 35}">
+    <table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th style="width: 70px">ردیف</th>
+                <th ng-repeat="column in obj.columns"
+                    st-sort="column.name">{{column.displayName}}</th>
+                <th ng-if="obj.actions.length" ng-style="{width: obj.actions.length * 35 + 1}" class="grid-action-header" ng-class="{'with-global-search': obj.globalSearch}">_</th>
+            </tr>
+            <tr ng-if="obj.globalSearch">
+                <th colspan="{{obj.columns.length + 2}}"><input st-search="" st-delay="10" class="form-control" placeholder="جستجو در این صفحه" type="text" /></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in displayedItems">
+                <td>{{((obj.pageIndex - 1) * obj.pageSize) + $index + 1}}</td>
+                <td ng-repeat="column in obj.columns">
+                    <span ng-if="!column.subItem" ng-click="column.onclick(item)">
+                        <span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{item[column.name]}}</span>
+                        <span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="item[column.name]"></kama-display-jalali></span>
+                        <span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[item[column.name]]}}</span>
+                    </span>
+
+                    <span ng-if="column.subItem">
+                        <span ng-repeat="subItem in item[column.subItem]">
+                            <span ng-if="subItem[column.subItemKey] == column.subItemValue" ng-click="column.onclick(subItem)">
+                                <span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{subItem[column.name]}}</span>
+                                <span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="subItem[column.name]"></kama-display-jalali></span>
+                                <span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[subItem[column.name]]}}</span>
+                            </span>
+                        </span>
+                    </span>
+                </td>
+                <td ng-if="obj.actions.length" ng-style="{ 'width': obj.actions.length * 35 + 1 }" class="grid-action">
+                    <i ng-repeat="action in obj.actions"
+                       ng-click="action.onclick(item)"
+                       ng-if="obj.checkActionVisibility === undefined || obj.checkActionVisibility(action.name, item)"
+                       class="{{action.class}}"
+                       title="{{action.title}}"
+                       aria-hidden="true"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-xs-12 kama-grid-bottom" ng-if="!obj.hideFooter">
+    <div class="col-xs-12 col-sm-4 col-sm-push-4 kama-pagination">
+        <a href="" ng-click="previousPage()"><i class="fa fa-chevron-right" aria-hidden="true"></i>قبلی</a>
+        |
+        صفحه
+        <select ng-options="option for option in obj.pageCount" ng-model="obj.pageIndex" ng-change="obj.getlist()"></select>
+        از
+        {{obj.pageCount.length}}
+        |
+        <a href="" ng-click="nextPage()">بعدی<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <div class="row">
+            <div class="col-xs-6 col-sm-pull-6 kama-total">
+                تعداد کل: {{obj.total}}
+            </div>
+            <div class="col-xs-6 kama-page-size">
+                رکورد در صفحه:
+                <select ng-options="option for option in obj.pageSizeRange" ng-model="obj.pageSize" ng-change="pageSizeChange()"></select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteConfirmationLabel">تایید حذف</h4>
+            </div>
+            <div class="modal-body">
+                <p>از حذف <strong>{{displayName}}</strong> اطمینان دارید؟</p>
+            </div>
+            <div class="modal-footer btn-container">
+                <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.confirmRemove()">تایید</button>
+                <button type="button" class="btn btn-default btn-min-width" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+    </div>
+</div>

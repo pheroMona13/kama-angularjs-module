@@ -1,0 +1,22 @@
+﻿<span class="kama-input-info" title="{{errorMessage}}" data-toggle='tooltip' data-placement="right"
+      ng-show="validate() == false">i</span>
+<i class="fa fa-calendar kama-input-focus" aria-hidden="true"
+   ng-show="type == 'date'"
+   ng-click="focus()"></i>
+<i class="fa fa-close kama-input-clear-icon" aria-hidden="true" title="پاک کردن"
+   ng-show="type == 'date' && model"
+   ng-click="clear()"></i>
+
+<input type="text"
+       class="form-control kama-input"
+       ng-hide="disabled"
+       ng-model="model"
+       ng-class="{'border-green': validate(), 'border-red': validate() == false}"
+       ng-readonly="readonly"
+       kama-format-view="{{type}}"
+       kama-prevent="{{preventPattern}}"
+       id="{{identifier}}"
+       maxlength="{{maxlength}}" />
+
+<span ng-show="disabled" class="kama-input-colon">:</span>
+<span ng-show="disabled" class="form-value">{{model}}</span>

@@ -1,0 +1,120 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">http service</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                        <label>city:</label>
+                        <div class="input-group">
+                        <select class="form-control" ng-model="example.city" ng-options="x.name for x in [{id: 1, name: 'Tehran'}, {id: 2, name: 'Isfahan'}]"></select>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary" ng-click="example.getPrayerTime()">get city prayer time</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-12">
+                        <p ng-if="example.loading">loading...</p>
+                        <div class="table-responsive" ng-if="example.response && !example.loading">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th colspan="2">Result</th>
+                                </tr>
+                                <tr ng-repeat="(key, value) in example.response">
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}">
+                <pre>
+httpService.Weather(model).then(function (weather) {
+    // do something with result
+}).catch(function (error) {
+    // handle error
+});
+
+httpService.User.Save(model).then(function (result) {
+    // do something with result
+}).catch(function (error) {
+    // handle error
+});
+</pre>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}">
+                <div class="form-group">
+                    <label>usage:</label>
+                    <pre>httpService.actionName(model);</pre>
+                </div>
+
+                <label>actions:</label>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>name</th>
+                            <th>type</th>
+                            <th>arguments</th>
+                            <th>notes</th>
+                        </tr>
+                        <tr>
+                            <td>could be anything</td>
+                            <td>function</td>
+                            <td>model=[object]</td>
+                            <td>returns a promise object</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p>Other kama angularjs modules use this module in various places. So although this service in empty by default, its existence is required.</p>
+                <p>This service is inherited from AngularJS $http service. So every action should return a promise object. It's recommended that you put all of your http calls in httpService and then access it from httpService whenever you want to send a http request.</p>
+                <p>You can expand http service in your application by creating another service like this:</p>
+                <pre>(function () {
+    angular
+        .module('yourModule')
+        .run(run)
+        .factory('customHttpService', customHttpService);
+
+    run.$inject = ['customHttpService'];
+    funcrion run(customHttpService) { }
+
+    customHttpService.$inject = ['httpService', '$http', '$q'];
+    function customHttpService(httpService, $http, $q) {
+        httpService.PrayerTime = {};
+        httpService.PrayerTime.ByCity = function (model) {
+            return $http({
+                method: 'POST'
+                , url: 'https://prayer.aviny.com/api/prayertimes/'
+                , data: model
+            }).then(function (result) {
+                if (result.status != 200)
+                    return $q.reject('خطای ناشناخته')
+
+                return result.data;
+            }).catch(function (error) {
+                return $q.reject(error);
+            });
+        }
+
+        return httpService;
+    }
+})();</pre>
+                <hr />
+                <ul>
+                    <li><a href="https://docs.angularjs.org/api/ng/service/$http" target="_blank">[read more about AngularJS $http]</a></li>
+                    <li><a href="https://docs.angularjs.org/api/ng/service/$q" target="_blank">[read more about AngularJS $q]</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

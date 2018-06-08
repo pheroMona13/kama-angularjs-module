@@ -1,0 +1,38 @@
+<div class="panel panel-default" ng-init="tab = 1">
+    <div class="panel-heading">
+        <h3 class="panel-title">select directive</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+            <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{'active': tab == 1}">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                        <label>test#1</label>
+                        <kama-select obj="example.select1"></kama-select>
+                    </div>
+                    <div class="col-xs-12">
+                        <label>bindingObject:</label>
+                        {{example.test1}}
+                    </div>
+                    <div class="col-xs-12"><hr /></div>
+
+                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                        <label>test#2</label>
+                        <kama-select obj="example.select2"></kama-select>
+                    </div>
+                    <div class="col-xs-12">
+                        <label>bindingObject:</label>
+                        {{example.test2}}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+            <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+        </div>
+    </div>
+</div>
