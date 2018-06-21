@@ -4,6 +4,7 @@ export default function authenticationService($cookies, globalService) {
         setCredentials: setCredentials
         , clearCredentials: clearCredentials
         , setPosition: setPosition
+        , isAuthenticated: isAuthenticated
     };
     
     return service;
@@ -24,5 +25,8 @@ export default function authenticationService($cookies, globalService) {
     }
     function setPosition(position) {
         $cookies.put('USER-Current-Position-ID', position.ID);
+    }
+    function isAuthenticated() {
+        return (angular.element('input[name="__isAuthenticated"]').attr('value') === 'true');
     }
 }
