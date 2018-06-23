@@ -1,5 +1,5 @@
-﻿authInterceptorService.$inject = ['$q', '$injector', '$cookies'];
-export default function authInterceptorService($q, $injector, $cookies) {
+﻿authInterceptorService.$inject = ['$q', '$injector', '$cookies', 'globalService'];
+export default function authInterceptorService($q, $injector, $cookies, globalService) {
     const service = {
         request: request
         , responseError: responseError
@@ -8,14 +8,15 @@ export default function authInterceptorService($q, $injector, $cookies) {
     return service;
 
     function request(config) {
-        config.headers = config.headers || {};
+		let authorizationData = globalService.get('authorizationData');
+		config.headers = config.headers || {};
 
-        var authData = $cookies.get('access-token');
-        if (authData) {
-            config.headers.Authorization = 'Bearer ' + authData;
-        }
+		config.headers['__antiForgeryFormToken'] = angular.element('input[name="__antiForgeryFormToken"]').attr('value');
 
-        return config;
+		if (authorizationData && authorizationData.access_token)
+			config.headers.Authorization = 'Bearer ' + authorizationData.access_token;
+
+		return config;
     }
     function responseError(rejection) {
         if (rejection.status === -1) {
