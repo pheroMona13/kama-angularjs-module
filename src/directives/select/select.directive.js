@@ -58,7 +58,7 @@ export default function kamaSelect($q, alertService, toolsService) {
         scope.obj.initSelect2 = initSelect2;
 
         if (Object.prototype.toString.call(scope.obj.items) === '[object Object]')
-            scope.obj.items = toolsService.standardizedEnum(scope.obj.items);
+            scope.obj.items = toolsService.arrayEnum(scope.obj.items);
         if (scope.obj.initLoad)
             scope.obj.getlist();
         else if (scope.obj.items && scope.obj.items.length)
