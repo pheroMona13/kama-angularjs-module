@@ -81,7 +81,6 @@
                 , url: 'http://localhost:26089/Attachment/Delete'
                 , data: model
             }).then(function () {
-                example.main.attachment.reset();
                 loadingService.hide();
             });
         }
