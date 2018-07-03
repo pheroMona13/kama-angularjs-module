@@ -18,6 +18,7 @@
             , uploadService: upload // should be a function that returns a promise
             , downloadService: download
             , deleteService: remove
+            , saveService: save
         }
 
         function upload(fileData) {
@@ -36,16 +37,15 @@
                     return false;
             });
         }
-        function save() {
+        function save(model) {
             loadingService.show();
             return $http({
                 method: 'POST'
                 , url: 'http://localhost:26089/Attachment/Save'
-                , data: example.main.attachment.getParams()
+                , data: model
             }).then(function (result) {
                 loadingService.hide();
                 alertService.success('فایل با موفقیت ذخیره شد');
-                example.main.attachment.bindingObject = result.data.Data;
             }).catch(function (error) {
                 loadingService.hide();
                 alertService.error('خطا در ذخیره‌سازی فایل');

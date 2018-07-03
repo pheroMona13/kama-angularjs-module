@@ -70,6 +70,7 @@ export default function kamaAttachment(alertService) {
         scope.obj.reset = reset;
         scope.obj.download = download;
         scope.obj.remove = remove;
+        scope.obj.save = save;
 
         element.find("input[type='file']").bind('change', selectFile);
 
@@ -143,6 +144,9 @@ export default function kamaAttachment(alertService) {
         }
         function remove() {
             return scope.obj.deleteService(scope.obj.bindingObject).then(reset);
+        }
+        function save() {
+            return scope.obj.saveService(getParams());
         }
     }
 }
