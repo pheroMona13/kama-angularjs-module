@@ -142,7 +142,7 @@ export default function kamaAttachment(alertService) {
             return scope.obj.downloadService(scope.obj.bindingObject);
         }
         function remove() {
-            return scope.obj.deleteService(scope.obk.bindingObject);
+            return scope.obj.deleteService(scope.obj.bindingObject);
         }
     }
 }
