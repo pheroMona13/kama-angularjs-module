@@ -17,7 +17,7 @@ export default function kamaAttachment(alertService) {
             </span>
 
             <span ng-show="!fileSelected && obj.bindingObject.ID">
-                <span class="attachment-download" ng-click="obj.downloadService()">[دانلود]</span>
+                <span class="attachment-download" ng-click="obj.download()">[دانلود]</span>
                 <span class="attachment-remove" data-toggle="modal" data-target="#deleteAttachmentConfirmationModal">[حذف فایل]</span>
                 <span class="attachment-state">{{obj.bindingObject.FileName}}</span>
             </span>
@@ -34,7 +34,7 @@ export default function kamaAttachment(alertService) {
                         <p>از حذف فایل اطمینان دارید؟</p>
                     </div>
                     <div class="modal-footer btn-container">
-                        <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.deleteService()">تایید</button>
+                        <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.remove()">تایید</button>
                         <button type="button" class="btn btn-default btn-min-width" data-dismiss="modal">انصراف</button>
                     </div>
                 </div>
@@ -68,6 +68,8 @@ export default function kamaAttachment(alertService) {
         scope.obj.getParams = getParams;
         scope.obj.isFilled = isFilled;
         scope.obj.reset = reset;
+        scope.obj.download = download;
+        scope.obj.remove = remove;
 
         element.find("input[type='file']").bind('change', selectFile);
 
@@ -135,6 +137,12 @@ export default function kamaAttachment(alertService) {
             element.find("input[type='file']").val(null);
             scope.obj.bindingObject = {};
             scope.fileSelected = false;
+        }
+        function download() {
+            return scope.obj.downloadService(scope.obj.bindingObject);
+        }
+        function remove() {
+            return scope.obj.deleteService(scope.obk.bindingObject);
         }
     }
 }

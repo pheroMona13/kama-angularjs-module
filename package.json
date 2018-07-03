@@ -1,6 +1,6 @@
 {
   "name": "kama-angularjs-module",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Set of AngularJS directives and services developed by Kama team",
   "repository": {
     "type": "git",
