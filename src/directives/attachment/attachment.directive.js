@@ -123,7 +123,7 @@ export default function kamaAttachment(alertService) {
             params.Type = scope.obj.type;
             params.FileName = scope.obj.fileName;
             for (var i = 0; i < scope.obj.bindings.length; i++) {
-                params[scope.obj.bindings[i].as] = scope.obj.bindings[i].model[scope.obj.bindings[i].parameter];
+                params[scope.obj.bindings[i].as] = scope.obj.bindings[i].obj.model[scope.obj.bindings[i].parameter];
             }
 
             return { model: params, fileName: tempFileName };
