@@ -6,6 +6,7 @@
         this.model = {};
         this.disabled = false;
         this.update = update;
+        this.resetAttachments = resetAttachments;
 
         function update() {
             for (let key in this) {
@@ -20,6 +21,12 @@
                             break;
                     }
                 }
+            }
+        }
+        function resetAttachments() {
+            for (let key in this) {
+                if (this[key].moduleType === 'attachment')
+                    this[key].reset();
             }
         }
     }
