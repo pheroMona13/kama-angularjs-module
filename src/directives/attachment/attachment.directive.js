@@ -18,12 +18,12 @@ export default function kamaAttachment(alertService) {
 
             <span ng-show="!fileSelected && obj.bindingObject.ID">
                 <span class="attachment-download" ng-click="obj.download()">[دانلود]</span>
-                <span class="attachment-remove" data-toggle="modal" data-target="#deleteAttachmentConfirmationModal">[حذف فایل]</span>
+                <span class="attachment-remove" ng-click="obj.remove()">[حذف فایل]</span>
                 <span class="attachment-state">{{obj.bindingObject.FileName}}</span>
             </span>
         </div>
 
-        <div class="modal fade" id="deleteAttachmentConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteAttachmentConfirmationLabel" aria-hidden="true">
+        <div class="modal fade deleteAttachmentConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteAttachmentConfirmationLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -34,7 +34,7 @@ export default function kamaAttachment(alertService) {
                         <p>از حذف فایل اطمینان دارید؟</p>
                     </div>
                     <div class="modal-footer btn-container">
-                        <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.remove()">تایید</button>
+                        <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.confirmRemove()">تایید</button>
                         <button type="button" class="btn btn-default btn-min-width" data-dismiss="modal">انصراف</button>
                     </div>
                 </div>
@@ -70,6 +70,7 @@ export default function kamaAttachment(alertService) {
         scope.obj.reset = reset;
         scope.obj.download = download;
         scope.obj.remove = remove;
+        scope.obj.confirmRemove = confirmRemove;
         scope.obj.save = save;
 
         element.find("input[type='file']").bind('change', selectFile);
@@ -143,6 +144,9 @@ export default function kamaAttachment(alertService) {
             return scope.obj.downloadService(scope.obj.bindingObject);
         }
         function remove() {
+            element.find('.deleteAttachmentConfirmationModal').modal('show');
+        }
+        function confirmRemove() {
             return scope.obj.deleteService(scope.obj.bindingObject).then(reset);
         }
         function save() {
