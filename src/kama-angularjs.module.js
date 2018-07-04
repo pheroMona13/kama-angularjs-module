@@ -27,6 +27,8 @@ import modelService from './services/model.service';
 import ObjectService from './services/object.service';
 import toolsService from './services/tools.service';
 
+import trustAsHtml from './filters/trust-as-html.filter';
+
 require("./styles/style.scss");
 
 angular
@@ -59,4 +61,6 @@ angular
     .factory('loadingService', loadingService)
     .factory('modelService', modelService)
     .factory('ObjectService', ObjectService)
-    .factory('toolsService', toolsService);
+    .factory('toolsService', toolsService)
+
+    .filter('trustAsHtml', trustAsHtml);

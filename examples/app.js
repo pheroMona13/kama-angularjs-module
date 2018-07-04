@@ -26,6 +26,8 @@
             .when('/read-more', { templateUrl: 'pages/directives/read-more/read-more.html' })
             .when('/select', { templateUrl: 'pages/directives/select/select.html', controller: 'SelectController', controllerAs: 'example' })
             .when('/grid', { templateUrl: 'pages/directives/grid/grid.html', controller: 'GridController', controllerAs: 'example' })
+
+            .when('/trust-as-html', { templateUrl: 'pages/filters/trust-as-html/trust-as-html.html' })
     }
 
     run.$inject = ['customEnumService', 'customHttpService']

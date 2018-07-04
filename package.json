@@ -1,6 +1,6 @@
 {
   "name": "kama-angularjs-module",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "Set of AngularJS directives and services developed by Kama team",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-sanitize": "^1.7.2",
     "angular-smart-table": "^2.1.11",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
