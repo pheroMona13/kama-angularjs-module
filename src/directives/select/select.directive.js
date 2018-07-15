@@ -51,6 +51,7 @@ export default function kamaSelect($q, alertService, toolsService) {
         scope.change = change;
         scope.obj.moduleType = 'select';
         scope.obj.displayName = scope.obj.displayName || ['Name'];
+        scope.obj.uniqueId = scope.obj.uniqueId || 'ID';
         scope.obj.options = scope.obj.options || function () { return {} };
         scope.obj.update = update;
         scope.obj.getlist = getlist;
@@ -82,7 +83,7 @@ export default function kamaSelect($q, alertService, toolsService) {
                     addDisplayName(scope.obj.items);
 
                 for (let i = 0; i < scope.obj.items.length; i++) {
-                    if (scope.obj.items[i].ID == scope.obj.bindingObject.model[scope.obj.parameters.ID]) {
+                    if (scope.obj.items[i][scope.obj.uniqueId] == scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]]) {
                         scope.selected = scope.obj.items[i];
                         scope.change();
                         return;
