@@ -2,7 +2,7 @@
 export default function kamaDisplayEnum(enumService) {
     var directive = {
         link: link,
-        templateUrl: '/src/directives/display-enum/display-enum.directive.html',
+        template: `{{enumObject[model]}}`,
         restrict: 'EA',
         scope: {
             model: '=model'
