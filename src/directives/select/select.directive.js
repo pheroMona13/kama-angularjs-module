@@ -98,7 +98,7 @@ export default function kamaSelect($q, alertService, toolsService) {
 
         // set values from selected item to bindingObject model based on parameters
         function change() {
-            return $q.when().then(function () {
+            return $q.resolve().then(function () {
                 for (let key in scope.obj.parameters) {
                     if (scope.selected)
                         scope.obj.bindingObject.model[scope.obj.parameters[key]] = scope.selected[key];
@@ -107,7 +107,7 @@ export default function kamaSelect($q, alertService, toolsService) {
                 }
             }).then(function () {
                 if (typeof (scope.obj.onChange) === 'function')
-                    scope.obj.onChange(scope.selected);
+                    scope.obj.onChange(scope.selected, !(scope.selected && Object.keys(scope.selected).length));
             });
         }
 
