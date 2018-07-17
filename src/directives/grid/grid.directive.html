@@ -19,17 +19,13 @@
                 <td>{{((obj.pageIndex - 1) * obj.pageSize) + $index + 1}}</td>
                 <td ng-repeat="column in obj.columns">
                     <span ng-if="!column.subItem" ng-click="column.onclick(item)">
-                        <span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{item[column.name]}}</span>
-                        <span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="item[column.name]"></kama-display-jalali></span>
-                        <span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[item[column.name]]}}</span>
+                        <span ng-class="{'link': !!column.onclick}">{{cellValue(item, column)}}</span>
                     </span>
 
                     <span ng-if="column.subItem">
                         <span ng-repeat="subItem in item[column.subItem]">
                             <span ng-if="subItem[column.subItemKey] == column.subItemValue" ng-click="column.onclick(subItem)">
-                                <span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{subItem[column.name]}}</span>
-                                <span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="subItem[column.name]"></kama-display-jalali></span>
-                                <span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[subItem[column.name]]}}</span>
+                                <span ng-class="{'link': !!column.onclick}">{{cellValue(subItem, column)}}</span>
                             </span>
                         </span>
                     </span>

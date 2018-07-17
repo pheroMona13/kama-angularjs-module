@@ -1,5 +1,5 @@
-﻿kamaGrid.$inject = ['ajaxService', 'alertService', 'loadingService', 'toolsService'];
-export default function kamaGrid(ajaxService, alertService, loadingService, toolsService) {
+﻿kamaGrid.$inject = ['alertService', 'loadingService', 'toolsService', '$filter'];
+export default function kamaGrid(alertService, loadingService, toolsService, $filter) {
     var directive = {
         link: link
         , template: `<div class="kama-grid-top" ng-if="!obj.hideHeader">
@@ -23,17 +23,13 @@ export default function kamaGrid(ajaxService, alertService, loadingService, tool
 						<td>{{((obj.pageIndex - 1) * obj.pageSize) + $index + 1}}</td>
 						<td ng-repeat="column in obj.columns">
 							<span ng-if="!column.subItem" ng-click="column.onclick(item)">
-								<span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{item[column.name]}}</span>
-								<span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="item[column.name]"></kama-display-jalali></span>
-								<span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[item[column.name]]}}</span>
+                                <span ng-class="{'link': !!column.onclick}">{{cellValue(item, column)}}</span>
 							</span>
 
 							<span ng-if="column.subItem">
 								<span ng-repeat="subItem in item[column.subItem]">
 									<span ng-if="subItem[column.subItemKey] == column.subItemValue" ng-click="column.onclick(subItem)">
-										<span ng-if="!column.type" ng-class="{'link': !!column.onclick}">{{subItem[column.name]}}</span>
-										<span ng-if="column.type == 'date'" ng-class="{'link': !!column.onclick}"><kama-display-jalali model="subItem[column.name]"></kama-display-jalali></span>
-										<span ng-if="column.type == 'enum'" ng-class="{'link': !!column.onclick}">{{column.source[subItem[column.name]]}}</span>
+										<span ng-class="{'link': !!column.onclick}">{{cellValue(subItem, column)}}</span>
 									</span>
 								</span>
 							</span>
@@ -133,6 +129,7 @@ export default function kamaGrid(ajaxService, alertService, loadingService, tool
         scope.previousPage = previousPage;
         scope.nextPage = nextPage;
         scope.pageSizeChange = pageSizeChange;
+        scope.cellValue = cellValue;
 
         Object.defineProperty(scope.obj, 'total', {
             get: function () {
@@ -277,6 +274,28 @@ export default function kamaGrid(ajaxService, alertService, loadingService, tool
                 scope.obj.pageCount.shift();
                 return scope.obj.items = items;
             });
+        }
+        function cellValue(item, column) {
+            let process = column.callback || function(item) { return item };
+            switch (column.type) {
+                case 'date':
+                    return process(toolsService.dateToJalali(item[column.name]));
+
+                case 'enum':
+                    return process(column.source[item[column.name]]);
+
+                case 'money':
+                    return process($filter('number')(item[column.name]));
+
+                case 'time':
+                    if (Object.prototype.toString.call(item[column.name]) === '[object Date]')
+                        return process(item[column.name].toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+                    else
+                        return process(toolsService.minutesToTime(item[column.name]));
+
+                default:
+                    return process(item[column.name]);
+            }
         }
     }
 }
