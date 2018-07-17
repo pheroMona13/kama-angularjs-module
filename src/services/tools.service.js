@@ -18,6 +18,7 @@ export default function toolsService() {
             , email: validateEmail
             , phoneNumber: validatePhoneNumber
             , jalali: validateJalali
+            , guid: validateGuid
         }
         , extend: extend
         , arrayEnum: arrayEnum
@@ -97,6 +98,9 @@ export default function toolsService() {
             return false;
         else
             return true;
+    }
+    function validateGuid(guid) {
+        return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(guid);
     }
     function extend() {
         // source: https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
