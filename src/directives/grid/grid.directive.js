@@ -48,14 +48,14 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
 		</div>
 		<div class="col-xs-12 kama-grid-bottom" ng-if="!obj.hideFooter">
 			<div class="col-xs-12 col-sm-4 col-sm-push-4 kama-pagination">
-				<a href="" ng-click="previousPage()"><i class="fa fa-chevron-right" aria-hidden="true"></i>قبلی</a>
+				<a href="" ng-click="obj.previousPage()"><i class="fa fa-chevron-right" aria-hidden="true"></i>قبلی</a>
 				|
 				صفحه
 				<select ng-options="option for option in obj.pageCount" ng-model="obj.pageIndex" ng-change="obj.getlist()"></select>
 				از
 				{{obj.pageCount.length}}
 				|
-				<a href="" ng-click="nextPage()">بعدی<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+				<a href="" ng-click="obj.nextPage()">بعدی<i class="fa fa-chevron-left" aria-hidden="true"></i></a>
 			</div>
 			<div class="col-xs-12 col-sm-8">
 				<div class="row">
@@ -64,7 +64,7 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
 					</div>
 					<div class="col-xs-6 kama-page-size">
 						رکورد در صفحه:
-						<select ng-options="option for option in obj.pageSizeRange" ng-model="obj.pageSize" ng-change="pageSizeChange()"></select>
+						<select ng-options="option for option in obj.pageSizeRange" ng-model="obj.pageSize" ng-change="obj.pageSizeChange()"></select>
 					</div>
 				</div>
 			</div>
@@ -126,9 +126,9 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
         scope.obj.deleteService; // should be a promise object
         scope.displayName = '';
         scope.deleteBuffer = {};
-        scope.previousPage = previousPage;
-        scope.nextPage = nextPage;
-        scope.pageSizeChange = pageSizeChange;
+        scope.obj.previousPage = previousPage;
+        scope.obj.nextPage = nextPage;
+        scope.obj.pageSizeChange = pageSizeChange;
         scope.cellValue = cellValue;
 
         Object.defineProperty(scope.obj, 'total', {
