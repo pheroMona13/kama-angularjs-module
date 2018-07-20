@@ -57,6 +57,7 @@ export default function kamaSelect($q, alertService, toolsService) {
         scope.obj.getlist = getlist;
         scope.obj.loadingSelect2 = loadingSelect2;
         scope.obj.initSelect2 = initSelect2;
+        scope.obj.setItems = setItems;
 
         if (Object.prototype.toString.call(scope.obj.items) === '[object Object]')
             scope.obj.items = toolsService.arrayEnum(scope.obj.items);
@@ -148,5 +149,10 @@ export default function kamaSelect($q, alertService, toolsService) {
 
             element.find('.kama-select').select2(options);
         }
+        function setItems(items) {
+			addDisplayName(items);
+			scope.obj.items = items;
+			scope.obj.update();
+		}
     }
 }
