@@ -5,7 +5,7 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
         , template: `<div class="kama-grid-top" ng-if="!obj.hideHeader">
 			<a href="" class="btn btn-link" style="text-decoration: none; color: #e0e3e6" ng-click="obj.add()"><i class="fa fa-plus" aria-hidden="true" style="position: relative; top: 2px;"></i> افزودن</a>
 		</div>
-		<div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.actions.length * 35}">
+		<div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.actions.length * 35}" ng-if="!obj.hideTable">
 			<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
 				<thead>
 					<tr>
