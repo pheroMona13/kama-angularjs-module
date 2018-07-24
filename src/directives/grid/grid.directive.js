@@ -115,6 +115,7 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
         scope.obj.pageSizeRange = scope.obj.pageSizeRange || [5, 10, 20, 50, 100];
         scope.obj.hideHeader = scope.obj.hideHeader || false;
         scope.obj.hideFooter = scope.obj.hideFooter || false;
+        scope.obj.displayNameFormat = scope.obj.displayNameFormat || [];
         scope.obj.add = add;
         scope.obj.edit = edit;
         scope.obj.remove = remove;
