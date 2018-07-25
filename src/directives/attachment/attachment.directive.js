@@ -4,9 +4,10 @@ export default function kamaAttachment(alertService) {
         link: link
         , template: `<div class="kama-attachment">
             <input type="file" style="display: none" />
-            <button type="button" class="btn btn-primary" ng-click="browse()"><span class="glyphicon glyphicon-folder-open"></span>انتخاب فایل</button>
-            <button type="button" class="btn btn-success" ng-click="upload()" ng-disabled="!fileSelected || uploading"><span class="glyphicon glyphicon-cloud-upload"></span>بارگذاری</button>
-
+            
+            <button type="button" class="btn btn-primary" ng-click="browse()" ng-if="!readOnly"><span class="glyphicon glyphicon-folder-open"></span>انتخاب فایل</button>
+            <button type="button" class="btn btn-success" ng-click="upload()" ng-if="!readOnly" ng-disabled="!fileSelected || uploading"><span class="glyphicon glyphicon-cloud-upload"></span>بارگذاری</button>
+            
             <span class="attachment-state" ng-show="!obj.bindingObject.FileName && !fileSelected">هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.</span>
             <a class="attachment-download" ng-click="openSelected($event)" ng-show="fileSelected" download="">[نمایش]</a>
             <span class="attachment-state" ng-show="fileSelected">
@@ -17,8 +18,8 @@ export default function kamaAttachment(alertService) {
             </span>
 
             <span ng-show="!fileSelected && obj.bindingObject.ID">
-                <span class="attachment-download" ng-click="obj.download()">[دانلود]</span>
-                <span class="attachment-remove" ng-click="obj.remove()">[حذف فایل]</span>
+                <span class="attachment-link download" ng-click="obj.download()">[دانلود]</span>
+                <span class="attachment-link remove" ng-click="obj.remove()" ng-if="!readOnly">[حذف فایل]</span>
                 <span class="attachment-state">{{obj.bindingObject.FileName}}</span>
             </span>
         </div>
@@ -43,6 +44,7 @@ export default function kamaAttachment(alertService) {
         , restrict: 'E'
         , scope: {
             obj: '=obj'
+            ,  readOnly: '=?readOnly'
         }
     };
 
