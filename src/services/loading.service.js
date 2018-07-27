@@ -7,7 +7,7 @@
     // create loading view
     let loadingContainer = document.createElement('div')
         , loadingView = `
-        <div id="loading-service" style="display: none;">
+        <div id="loading-service" style="display: none">
             <div class="showbox">
                 <div class="loader">
                     <svg class="circular" viewBox="25 25 50 50">
@@ -28,8 +28,9 @@
         if (timeout === undefined)
             timeout = 200;
 
-        setTimeout(function () {
+        if (timeout)
+            setTimeout(function () { $('#loading-service').hide() }, timeout);
+        else
             $('#loading-service').hide();
-        }, timeout);
     }
 }
