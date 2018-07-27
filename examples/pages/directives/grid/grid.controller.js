@@ -17,7 +17,7 @@
                 , { name: 'email', displayName: 'ایمیل' }
                 , { name: 'phone', displayName: 'تلفن' }
             ]
-            , hideFooter: true
+            , readOnly: function() { return true }
             , displayNameFormat: ['Name']
             , globalSearch: true
             , listService: universities

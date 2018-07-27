@@ -2,17 +2,17 @@
 export default function kamaGrid(alertService, loadingService, toolsService, $filter) {
     var directive = {
         link: link
-        , template: `<div class="kama-grid-top" ng-if="!obj.hideHeader">
+        , template: `<div class="kama-grid-top" ng-if="!obj.hideHeader && !obj.readOnly()">
 			<a href="" class="btn btn-link" style="text-decoration: none; color: #e0e3e6" ng-click="obj.add()"><i class="fa fa-plus" aria-hidden="true" style="position: relative; top: 2px;"></i> افزودن</a>
 		</div>
-		<div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.actions.length * 35}" ng-if="!obj.hideTable">
+		<div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.readOnly() || obj.actions.length * 35}" ng-if="!obj.hideTable">
 			<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th style="width: 70px">ردیف</th>
 						<th ng-repeat="column in obj.columns"
 							st-sort="column.name">{{column.displayName}}</th>
-						<th ng-if="obj.actions.length" ng-style="{width: obj.actions.length * 35 + 1}" class="grid-action-header" ng-class="{'with-global-search': obj.globalSearch}">_</th>
+						<th ng-if="obj.actions.length && !obj.readOnly()" ng-style="{width: obj.actions.length * 35 + 1}" class="grid-action-header" ng-class="{'with-global-search': obj.globalSearch}">_</th>
 					</tr>
 					<tr ng-if="obj.globalSearch">
 						<th colspan="{{obj.columns.length + 2}}"><input st-search="" st-delay="10" class="form-control" placeholder="جستجو در این صفحه" type="text" /></th>
@@ -34,7 +34,7 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
 								</span>
 							</span>
 						</td>
-						<td ng-if="obj.actions.length" ng-style="{ 'width': obj.actions.length * 35 + 1 }" class="grid-action">
+						<td ng-if="obj.actions.length && !obj.readOnly()" ng-style="{ 'width': obj.actions.length * 35 + 1 }" class="grid-action">
 							<i ng-repeat="action in obj.actions"
 							   ng-click="action.onclick(item)"
 							   ng-if="obj.checkActionVisibility === undefined || obj.checkActionVisibility(action.name, item)"
@@ -122,6 +122,7 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
         scope.obj.confirmRemove = confirmRemove;
         scope.obj.getlist = getlist;
         scope.obj.update = update;
+        scope.obj.readOnly = scope.obj.readOnly || function () { return false };
         scope.obj.options = scope.obj.options || function () { return {} }; // should be a function that returns an object
         scope.obj.listService; // should be a promise object
         scope.obj.deleteService; // should be a promise object
