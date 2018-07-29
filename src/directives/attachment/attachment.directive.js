@@ -8,7 +8,10 @@ export default function kamaAttachment(alertService) {
             <button type="button" class="btn btn-primary" ng-click="browse()" ng-if="!obj.readOnly()"><span class="glyphicon glyphicon-folder-open"></span>انتخاب فایل</button>
             <button type="button" class="btn btn-success" ng-click="upload()" ng-if="!obj.readOnly()" ng-disabled="!fileSelected || uploading"><span class="glyphicon glyphicon-cloud-upload"></span>بارگذاری</button>
             
-            <span class="attachment-state" ng-if="!obj.readOnly() && !obj.bindingObject.FileName && !fileSelected">هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.</span>
+            <span class="attachment-state" ng-if="!obj.readOnly() && !obj.bindingObject.FileName && !fileSelected">
+                هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.
+                <span ng-if="obj.maxFileSize">حداکثر سایز فایل مجاز: {{obj.maxFileSize / 1024 / 1024}} مگابایت</span>
+            </span>
             <span class="attachment-state" ng-if="obj.readOnly() && !obj.bindingObject.ID">فایلی بارگذاری نشده است.</span>
 
             <a class="attachment-download" ng-click="openSelected($event)" ng-show="fileSelected" download="">[نمایش]</a>
