@@ -31,6 +31,7 @@ export default function toolsService() {
         , dateRangeOverlaps: dateRangeOverlaps
         , timeToMinutes: timeToMinutes
         , minutesToTime: minutesToTime
+        , print: print
     };
 
     return service;
@@ -268,6 +269,15 @@ export default function toolsService() {
         }
 
         return tree;
+    }
+    function print(elementId) {
+        let toPrint = document.getElementById(elementId);
+        let popupWin = window.open('', '_blank', 'width=1000,height=800,location=no,left=200px');
+        popupWin.document.open();
+        popupWin.document.write('<html><title></title><style></style></head><body onload="window.print()">')
+        popupWin.document.write(toPrint.innerHTML);
+        popupWin.document.write('</html>');
+        popupWin.document.close();
     }
     function dateToJalali(date) {
         let jalali;
