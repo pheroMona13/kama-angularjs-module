@@ -159,8 +159,8 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
             scope.obj.pageCount = [1];
 
         // rename to 'refresh' or 'update' after migration to new system completed
-        function getlist(callback, opts) {
-            if (opts && opts.noLoading)
+        function getlist(loading) {
+            if (loading === false)
                 return getItems();
             else {
                 loadingService.show();
