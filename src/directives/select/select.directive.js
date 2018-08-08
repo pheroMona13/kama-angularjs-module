@@ -9,7 +9,7 @@ export default function kamaSelect($q, alertService, toolsService) {
         , template: `<select class="form-control kama-select" style="width: 100%"
                 ng-options="item[obj.displayName] for item in obj.items"
                 ng-model="selected"
-                ng-change="change()"
+                ng-change="change(true)"
                 ng-disabled="obj.checkDisability && obj.checkDisability()">
             <option value="" selected="selected"></option>
         </select>
@@ -98,7 +98,7 @@ export default function kamaSelect($q, alertService, toolsService) {
         }
 
         // set values from selected item to bindingObject model based on parameters
-        function change() {
+        function change(fromView) {
             return $q.resolve().then(function () {
                 for (let key in scope.obj.parameters) {
                     if (scope.selected)
@@ -108,7 +108,10 @@ export default function kamaSelect($q, alertService, toolsService) {
                 }
             }).then(function () {
                 if (typeof (scope.obj.onChange) === 'function')
-                    scope.obj.onChange(scope.selected, !(scope.selected && Object.keys(scope.selected).length));
+                    scope.obj.onChange(scope.selected, {
+						isEmpty: !(scope.selected && Object.keys(scope.selected).length)
+						, fromView: fromView
+					});
             });
         }
 
