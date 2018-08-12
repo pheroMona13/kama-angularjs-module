@@ -178,12 +178,12 @@ export default function toolsService() {
             , isNew;
 
         if (input) {
-            for (let i = 0; i < input.length; i++) {
+            for (var i = 0; i < input.length; i++) {
                 isNew = false;
 
-                for (let j = 0; j < result.length; j++) {
+                for (var j = 0; j < result.length; j++) {
                     let allKeysMatch = true;
-                    for (let k = 0; k < keys.length; k++) {
+                    for (var k = 0; k < keys.length; k++) {
                         if (input[i][keys[k]] != result[j][keys[k]])
                             allKeysMatch = false;
                     }
@@ -195,7 +195,7 @@ export default function toolsService() {
 
                 if (!isNew) {
                     result[j] = { items: [input[i]] };
-                    for (let r = 0; r < keys.length; r++) {
+                    for (var r = 0; r < keys.length; r++) {
                         result[j][keys[r]] = input[i][keys[r]];
                     }
                 }
