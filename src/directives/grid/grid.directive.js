@@ -236,7 +236,10 @@ export default function kamaGrid(alertService, loadingService, toolsService, $fi
                     scope.obj.pageIndex--;
 
                 return getItems();
-            }).then(function (items) {
+            }).then(() => {
+                if (scope.obj.onDelete)
+                    return scope.obj.onDelete();
+            }).then(function () {
                 loadingService.hide();
                 alertService.success('حذف با موفقیت انجام شد');
             }).catch(function (error) {
