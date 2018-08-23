@@ -28,6 +28,7 @@ import ObjectService from './services/object.service';
 import toolsService from './services/tools.service';
 
 import trustAsHtml from './filters/trust-as-html.filter';
+import displayMoney from './filters/display-money.filter';
 
 require("./styles/style.scss");
 
@@ -63,4 +64,5 @@ angular
     .factory('ObjectService', ObjectService)
     .factory('toolsService', toolsService)
 
-    .filter('trustAsHtml', trustAsHtml);
+    .filter('trustAsHtml', trustAsHtml)
+	.filter('displayMoney', displayMoney);
