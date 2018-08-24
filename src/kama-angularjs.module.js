@@ -12,6 +12,7 @@ import kamaInputNumber from './directives/input-number/input-number.directive';
 import kamaPrevent from './directives/prevent/prevent.directive';
 import kamaReadMore from './directives/read-more/read-more.directive';
 import kamaSelect from './directives/select/select.directive';
+import kamaMultiSelect from './directives/multi-select/multi-select.directive';
 
 import ajaxMultiService from './services/ajax-multi.service';
 import ajaxService from './services/ajax.service';
@@ -49,6 +50,7 @@ angular
     .directive('kamaPrevent', kamaPrevent)
     .directive('kamaReadMore', kamaReadMore)
     .directive('kamaSelect', kamaSelect)
+    .directive('kamaMultiSelect', kamaMultiSelect)
 
     .factory('ajaxMultiService', ajaxMultiService)
     .factory('ajaxService', ajaxService)
