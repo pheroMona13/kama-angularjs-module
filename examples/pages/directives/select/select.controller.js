@@ -26,6 +26,7 @@
                 }
             }
             , initLoad: true
+            , select2: true
         }
 
         function universities(options) {

@@ -65,15 +65,32 @@ export default function kamaSelect($q, alertService, toolsService) {
             scope.obj.getlist();
         else if (scope.obj.items && scope.obj.items.length)
             addDisplayName(scope.obj.items);
+        if (scope.obj.select2) {
+            $(element.find('select')[0]).select2({
+                allowClear: true
+                , dir: 'rtl'
+                , placeholder: 'یک مورد را انتخاب کنید'
+            });
+        }
 
         // get items from api, then call update()
         function getlist(callback) {
+            if (scope.obj.select2) {
+                setTimeout(() => {
+                    element.find('.select2-selection__placeholder')[0].innerText = 'در حال بارگذاری اطلاعات...';
+                }, 0);
+            }
+
             let options = scope.obj.options();
-            
             return scope.obj.listService(options).then(function (items) {
                 addDisplayName(items);
                 scope.obj.items = items;
                 scope.obj.update();
+                if (scope.obj.select2) {
+                    setTimeout(() => {
+                        element.find('.select2-selection__placeholder')[0].innerText = 'یک مورد را انتخاب کنید';
+                    }, 0);
+                }
             });
         }
 
