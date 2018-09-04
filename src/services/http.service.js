@@ -22,8 +22,8 @@ export default function httpService($http) {
                         input[key] = convertDates(input[key]);
                 }
             }
-            else if (typeof input === 'string' && input.indexOf('/Date(') !== -1 && input.indexOf(')/') !== -1)
-                input = new Date(parseInt(input.substr(6))); // convert date string to date object
+            else if (typeof input === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/.test(input))
+                input = new Date(input); // fix dates
 
             return input;
         }
