@@ -45,7 +45,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="بستن">
                     <span aria-hidden="true">×</span>
                 </button>
-                <strong>پیام: </strong>${message}
+                ${message}
             </div>'
         `);
 
