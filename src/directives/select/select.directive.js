@@ -2,8 +2,8 @@
 // *** FIX BUG LATER: second child binding does not get empty on parent change
 // *** FIX BUG LATER: select2 default state shows unselect button.
 
-kamaSelect.$inject = ['$q', 'alertService', 'toolsService'];
-export default function kamaSelect($q, alertService, toolsService) {
+kamaSelect.$inject = ['$q', 'toolsService', '$timeout'];
+export default function kamaSelect($q, toolsService, $timeout) {
     var directive = {
         link: link
         , template: `<select class="form-control kama-select" style="width: 100%"
@@ -123,6 +123,9 @@ export default function kamaSelect($q, alertService, toolsService) {
                     else
                         scope.obj.bindingObject.model[scope.obj.parameters[key]] = null;
                 }
+            }).then(()=>{
+                if (scope.obj.select2)
+                    $timeout(function() { element.find('select').trigger('change') }, 0);
             }).then(function () {
                 if (typeof (scope.obj.onChange) === 'function')
                     scope.obj.onChange(scope.selected, {
