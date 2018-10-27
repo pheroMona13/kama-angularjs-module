@@ -6,13 +6,16 @@ kamaSelect.$inject = ['$q', 'toolsService', '$timeout'];
 export default function kamaSelect($q, toolsService, $timeout) {
     var directive = {
         link: link
-        , template: `<select class="form-control kama-select" style="width: 100%"
+        , template: `
+        <select class="form-control kama-select" style="width: 100%"
                 ng-options="item[obj.displayName] for item in obj.items"
                 ng-model="selected"
                 ng-change="change(true)"
                 ng-disabled="obj.checkDisability && obj.checkDisability()">
             <option value="" selected="selected"></option>
         </select>
+
+        <select class="form-control kama-lazyselect"></select>
 
         <script>
             /*
@@ -24,7 +27,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
 
                 both issues have nothing to do with select2 directly.
                 until these bugs get fixed use default html select.
-            */
+            
             if (true || /iP(od|hone)/i.test(window.navigator.userAgent) || /IEMobile/i.test(window.navigator.userAgent) || /Windows Phone/i.test(window.navigator.userAgent) || /BlackBerry/i.test(window.navigator.userAgent) || /BB10/i.test(window.navigator.userAgent) || /Android.*Mobile/i.test(window.navigator.userAgent)) {
                 //console.log('Your browser does not support select2');
             } else {
@@ -34,7 +37,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
                     dir: "rtl",
                     placeholder: "یک مورد را انتخاب کنید"
                 });
-            }
+            }*/
         </script>`
         , restrict: 'EA'
         , scope: {
@@ -58,19 +61,68 @@ export default function kamaSelect($q, toolsService, $timeout) {
         scope.obj.loadingSelect2 = loadingSelect2;
         scope.obj.initSelect2 = initSelect2;
         scope.obj.setItems = setItems;
-
-        if (Object.prototype.toString.call(scope.obj.items) === '[object Object]')
-            scope.obj.items = toolsService.arrayEnum(scope.obj.items);
-        if (scope.obj.initLoad)
-            scope.obj.getlist();
-        else if (scope.obj.items && scope.obj.items.length)
-            addDisplayName(scope.obj.items);
-        if (scope.obj.select2) {
-            $(element.find('select')[0]).select2({
+        
+        if (scope.obj.lazy) {
+            let lazySelect = $(element.find('.kama-lazyselect')[0]).select2({
                 allowClear: true
                 , dir: 'rtl'
                 , placeholder: 'یک مورد را انتخاب کنید'
+                , escapeMarkup: function (markup) { return markup; }
+                , templateResult: function(repo) {
+                    if (repo.loading)
+                        return repo.text;
+                        
+                    return '<div style="cursor: pointer">' + repo[scope.obj.displayName] + '</div>';
+                }
+                , templateSelection: function(repo) {
+                    return repo[scope.obj.displayName] || repo.text;
+                }
+                , minimumInputLength: 4
+                , ajax: {
+                    transport: function (params, success, failure) {
+                        var searchModel = {};
+                        searchModel[scope.obj.searchBy] = params.data.term;
+                        return scope.obj.listService(searchModel).then(function (result) {
+                            addDisplayName(result);
+                            return success(result);
+                        }).catch(function (error) {
+                            failure(error);
+                        });
+                    }
+                    , processResults: function (data) {
+                        data.map(function(i) { i.id = i.ID });
+                        return {
+                            results: data
+                        };
+                    }
+                }
             });
+            lazySelect.on('select2:select', function(e) {
+                scope.selected = e.params.data;
+                change();
+            });
+            lazySelect.on('select2:unselect', function(e) {
+                scope.selected = {};
+                change();
+            });
+            element.find('.kama-select').remove();
+            update();
+        }
+        else {
+            if (Object.prototype.toString.call(scope.obj.items) === '[object Object]')
+                scope.obj.items = toolsService.arrayEnum(scope.obj.items);
+            if (scope.obj.initLoad)
+                scope.obj.getlist();
+            else if (scope.obj.items && scope.obj.items.length)
+                addDisplayName(scope.obj.items);
+            if (scope.obj.select2) {
+                $(element.find('.kama-select')[0]).select2({
+                    allowClear: true
+                    , dir: 'rtl'
+                    , placeholder: 'یک مورد را انتخاب کنید'
+                });
+            }
+            element.find('.kama-lazyselect').remove();
         }
 
         // get items from api, then call update()
@@ -96,22 +148,53 @@ export default function kamaSelect($q, toolsService, $timeout) {
 
         // set selected item based on bindingObject model, then call change()
         function update() {
-            if (scope.obj.items && scope.obj.items.length > 0) {
-                if (!scope.obj.items[0][scope.obj.displayName])
-                    addDisplayName(scope.obj.items);
-
-                for (let i = 0; i < scope.obj.items.length; i++) {
-                    if (scope.obj.items[i][scope.obj.uniqueId] == scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]]) {
-                        scope.selected = scope.obj.items[i];
-                        scope.change();
-                        return;
+            return $q.resolve().then(function() {
+                if (scope.obj.lazy) {
+                    if (scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]]) {
+                        setTimeout(function() {
+                            element.find('.select2-selection__placeholder')[0].innerText = 'در حال بارگذاری اطلاعات...';
+                        }, 0);
+                        let searchModel = {};
+                        searchModel[scope.obj.uniqueId] = scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]];
+                        return scope.obj.getService(searchModel).then(function (result) {
+                            addDisplayName([result]);
+                            var lazySelect = $(element.find('.kama-lazyselect')[0]);
+                            var option = new Option(result[scope.obj.displayName], result[scope.obj.uniqueId], true, true);
+                            
+                            lazySelect.append(option).trigger('change');
+                            lazySelect.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: result
+                                }
+                            });
+                            setTimeout(function() {
+                                element.find('.select2-selection__placeholder')[0].innerText = 'یک مورد را انتخاب کنید';
+                            }, 0);
+                        })
+                    }
+                    else {
+                        scope.selected = {};
+                        change();
                     }
                 }
-
-                scope.selected = {};
-                setTimeout(function () { element.find('.kama-select').val([]).trigger('change'); }, 0);
-                scope.change();
-            }
+                else if (scope.obj.items && scope.obj.items.length > 0) {
+                    if (!scope.obj.items[0][scope.obj.displayName])
+                        addDisplayName(scope.obj.items);
+    
+                    for (let i = 0; i < scope.obj.items.length; i++) {
+                        if (scope.obj.items[i][scope.obj.uniqueId] == scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]]) {
+                            scope.selected = scope.obj.items[i];
+                            scope.change();
+                            return;
+                        }
+                    }
+    
+                    scope.selected = {};
+                    setTimeout(function () { element.find('.kama-select').val([]).trigger('change'); }, 0);
+                    scope.change();
+                } 
+            });
         }
 
         // set values from selected item to bindingObject model based on parameters
@@ -125,7 +208,9 @@ export default function kamaSelect($q, toolsService, $timeout) {
                 }
             }).then(()=>{
                 if (scope.obj.select2)
-                    $timeout(function() { element.find('select').trigger('change') }, 0);
+                    $timeout(function() { element.find('.kama-select').trigger('change') }, 0);
+                else if (scope.obj.lazy && !scope.obj.bindingObject.model[scope.obj.parameters[scope.obj.uniqueId]])
+                    $timeout(function() { element.find('.kama-lazyselect').val(null).trigger('change') }, 0);
             }).then(function () {
                 if (typeof (scope.obj.onChange) === 'function')
                     scope.obj.onChange(scope.selected, {

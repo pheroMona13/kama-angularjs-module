@@ -18,16 +18,28 @@
                     <div class="col-xs-12">
                         <label>bindingObject:</label>
                         {{example.test1}}
+                        <hr>
                     </div>
-                    <div class="col-xs-12"><hr /></div>
 
-                    <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                    <div class="form-group col-xs-12 col-md-6">
                         <label>test#2</label>
                         <kama-select obj="example.select2"></kama-select>
                     </div>
                     <div class="col-xs-12">
                         <label>bindingObject:</label>
                         {{example.test2}}
+                        <hr>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-md-6">
+                        <label>test#3</label>
+                        <kama-select obj="example.select3"></kama-select>
+                        <button class="btn btn-xs btn-default" ng-click="example.test3.emptySelect3()">empty programmatically</button>
+                    </div>
+                    <div class="col-xs-12">
+                        <label>bindingObject:</label>
+                        {{example.test3}}
+                        <hr>
                     </div>
                 </div>
             </div>
