@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in displayedItems">
+            <tr ng-repeat="item in displayedItems" class="{{obj.rowClass(item)}}">
                 <td>{{((obj.pageIndex - 1) * obj.pageSize) + $index + 1}}</td>
                 <td ng-repeat="column in obj.columns">
                     <span ng-if="!column.subItem" ng-click="column.onclick(item)">

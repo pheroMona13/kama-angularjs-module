@@ -39,6 +39,7 @@
                     }
                 }
             ]
+            , rowClass: () => { return 'text-danger' }
             , globalSearch: true
         }
 

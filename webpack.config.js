@@ -5,7 +5,7 @@ const path = require("path"),
   UglifyJSPlugin = require("uglifyjs-webpack-plugin"),
   ExtractTextPlugin = require("extract-text-webpack-plugin"),
   extractSass = new ExtractTextPlugin({ filename: "kama-angularjs.min.css" }),
-  buildMode = "dev"; // 'dev' or 'prod'
+  buildMode = "prod"; // 'dev' or 'prod'
 
 module.exports = {
   entry: {

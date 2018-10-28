@@ -47,6 +47,7 @@ export default function kamaGrid(
     scope.obj.hideHeader = scope.obj.hideHeader || false;
     scope.obj.hideFooter = scope.obj.hideFooter || false;
     scope.obj.displayNameFormat = scope.obj.displayNameFormat || [];
+    scope.obj.rowClass = scope.obj.rowClass || function () { return '' };
     scope.obj.add = add;
     scope.obj.edit = edit;
     scope.obj.remove = remove;
