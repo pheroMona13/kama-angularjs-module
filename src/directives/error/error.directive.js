@@ -1,18 +1,11 @@
 ﻿export default function kamaError() {
-    let directive = {
-        template: `
-            <div class="alert alert-danger" ng-if="errors.length">
-                <div class="close" ng-click="errors.length = 0">×</div>
-                <p><strong>ابتدا خطاهای زیر را برطرف کنید:</strong></p>
-                <div class="kama-errors">
-                    <p ng-repeat="error in errors track by $index">{{error}}</p>
-                </div>
-            </div>`
-        , restrict: 'E'
-        , scope: {
-            errors: '=errors'
-        }
+  let directive = {
+    template: require("./erro.directive.html"),
+    restrict: "E",
+    scope: {
+      errors: "=errors"
     }
+  };
 
-    return directive;
+  return directive;
 }

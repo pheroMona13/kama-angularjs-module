@@ -1,13 +1,15 @@
-﻿kamaAutofocus.$inject = ['$timeout'];
+﻿kamaAutofocus.$inject = ["$timeout"];
 export default function kamaAutofocus($timeout) {
-    var directive = {
-        restrict: 'A'
-        , link: link
-    };
+  let directive = {
+    restrict: "A",
+    link: link
+  };
 
-    return directive;
+  return directive;
 
-    function link(scope, element, attrs) {
-        $timeout(function () { element.focus(); }, 0);
-    }
+  function link(scope, element, attrs) {
+    $timeout(() => {
+      element.focus();
+    }, 0);
+  }
 }

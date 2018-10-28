@@ -5,7 +5,6 @@ import kamaDisplayEnum from './directives/display-enum/display-enum.directive';
 import kamaDisplayJalali from './directives/display-jalali/display-jalali.directive';
 import kamaError from './directives/error/error.directive';
 import kamaFormatView from './directives/format-view/format-view.directive';
-import kamaGlobal from './directives/global/global.directive';
 import kamaGrid from './directives/grid/grid.directive';
 import kamaInput from './directives/input/input.directive';
 import kamaInputNumber from './directives/input-number/input-number.directive';
@@ -43,7 +42,6 @@ angular
     .directive('kamaDisplayJalali', kamaDisplayJalali)
     .directive('kamaError', kamaError)
     .directive('kamaFormatView', kamaFormatView)
-    .directive('kamaGlobal', kamaGlobal)
     .directive('kamaGrid', kamaGrid)
     .directive('kamaInput', kamaInput)
     .directive('kamaInputNumber', kamaInputNumber)

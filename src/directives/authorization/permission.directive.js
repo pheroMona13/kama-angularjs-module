@@ -1,19 +1,22 @@
 ﻿export default function kamaPermission() {
-    var directive = {
-        link: link
-        , restrict: 'A'
-        , scope: {
-            command: '@command'
-        }
-    };
+  let directive = {
+    link: link,
+    restrict: "A"
+  };
 
-    return directive;
+  return directive;
 
-    function link(scope, element, attrs) {
-        // check if permission object exists and command is in it
-        if (true) {
-            // remove the element
-            element.remove();
+  function link(scope, element, attrs) {
+    let authorized = false;
+    if ($rootScope.permissions && $rootScope.permissions.length) {
+      for (let i = 0; i < $rootScope.permissions.length; i++) {
+        if ($rootScope.permissions[i].Name === attrs.kamaPermission) {
+            authorized = true;
+            break;
         }
+      }
     }
+
+    if (!authorized) element.html("");
+  }
 }
