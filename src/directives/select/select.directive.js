@@ -1,6 +1,5 @@
 ﻿// *** FIX BUG LATER: child select calls getlist for the first time even when it's not required.
 // *** FIX BUG LATER: second child binding does not get empty on parent change
-// *** FIX BUG LATER: select2 default state shows unselect button.
 
 kamaSelect.$inject = ["$q", "toolsService", "$timeout"];
 export default function kamaSelect($q, toolsService, $timeout) {
@@ -77,11 +76,11 @@ export default function kamaSelect($q, toolsService, $timeout) {
       });
       lazySelect.on("select2:select", e => {
         scope.selected = e.params.data;
-        change();
+        change(!e.params.fromCode);
       });
       lazySelect.on("select2:unselect", e => {
         scope.selected = {};
-        change();
+        change(true);
       });
       element.find(".kama-select").remove();
       update();
@@ -156,7 +155,8 @@ export default function kamaSelect($q, toolsService, $timeout) {
               lazySelect.trigger({
                 type: "select2:select",
                 params: {
-                  data: result
+                  data: result,
+                  fromCode: true
                 }
               });
               setTimeout(() => {
