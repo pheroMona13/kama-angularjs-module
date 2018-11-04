@@ -54,7 +54,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
         minimumInputLength: scope.obj.minimumInputLength,
         ajax: {
           transport: (params, success, failure) => {
-            let searchModel = {};
+            let searchModel = scope.obj.options();
             searchModel[scope.obj.searchBy] = params.data.term;
             return scope.obj
               .listService(searchModel)
