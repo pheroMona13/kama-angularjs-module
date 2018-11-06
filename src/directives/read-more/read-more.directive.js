@@ -2,7 +2,7 @@
 export default function kamaReadMore(toolsService, $interval, $timeout) {
   var directive = {
     link: link,
-    templateUrl: require("./read-more.directive.html"),
+    template: require("./read-more.directive.html"),
     restrict: "E",
     scope: {
       text: "=text"
