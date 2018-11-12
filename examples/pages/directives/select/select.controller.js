@@ -18,7 +18,7 @@
             items: [{ ID: 1, Name: 'John', LastName: 'Doe' }, { ID: 2, Name: 'Jane', LastName: 'Doe' }]
             , bindingObject: example.test1
             , parameters: { Name: 'TestName', LastName: 'TestLastName' }
-            , displayName: ['Name', 'LastName']
+            , displayName: (data) => { return data.Name + ' wow! ' + data.LastName }
         }
         example.select2 = {
             bindingObject: example.test2
