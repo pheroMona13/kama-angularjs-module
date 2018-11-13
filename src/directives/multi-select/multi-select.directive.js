@@ -16,6 +16,7 @@ export default function kamaMultiSelect($timeout) {
 
     scope.selected = [];
     scope.change = change;
+    scope.customDisplayName = "kamaCustomDisplayName";
     scope.obj.moduleType = "multi-select";
     scope.obj.displayName = scope.obj.displayName || ["Name"];
     scope.obj.uniqueId = scope.obj.uniqueId || "ID";
@@ -48,16 +49,23 @@ export default function kamaMultiSelect($timeout) {
       });
     }
     function addDisplayName(data) {
-      if (scope.obj.displayName.length > 1) {
+      if (typeof scope.obj.displayName === "function") {
         for (let i = 0; i < data.length; i++) {
-          data[i][scope.obj.displayName] = "";
+          data[i][scope.customDisplayName] = scope.obj.displayName(data[i]);
+        }
+      } else if (scope.obj.displayName.length === 1) {
+        scope.customDisplayName = scope.obj.displayName[0];
+      } else if (scope.obj.displayName.length > 1) {
+        for (let i = 0; i < data.length; i++) {
+          data[i][scope.customDisplayName] = "";
 
           for (let j = 0; j < scope.obj.displayName.length; j++) {
             if (data[i].hasOwnProperty(scope.obj.displayName[j])) {
-              data[i][scope.obj.displayName] +=
+              data[i][scope.customDisplayName] +=
                 data[i][scope.obj.displayName[j]] + " ";
             } else {
-              data[i][scope.obj.displayName] += scope.obj.displayName[j] + " ";
+              data[i][scope.customDisplayName] +=
+                scope.obj.displayName[j] + " ";
             }
           }
         }

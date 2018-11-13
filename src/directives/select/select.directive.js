@@ -18,7 +18,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
     if (!scope.obj) return console.error("KAMA SELECT: obj is undefined.");
 
     scope.change = change;
-    scope.customDisplayName = 'kamaCustomDisplayName';
+    scope.customDisplayName = "kamaCustomDisplayName";
     scope.obj.moduleType = "select";
     scope.obj.displayName = scope.obj.displayName || ["Name"];
     scope.obj.uniqueId = scope.obj.uniqueId || "ID";
@@ -246,7 +246,6 @@ export default function kamaSelect($q, toolsService, $timeout) {
       } else if (scope.obj.displayName.length === 1) {
         scope.customDisplayName = scope.obj.displayName[0];
       } else if (scope.obj.displayName.length > 1) {
-        debugger
         for (let i = 0; i < data.length; i++) {
           data[i][scope.customDisplayName] = "";
 
@@ -255,7 +254,8 @@ export default function kamaSelect($q, toolsService, $timeout) {
               data[i][scope.customDisplayName] +=
                 data[i][scope.obj.displayName[j]] + " ";
             } else {
-              data[i][scope.customDisplayName] += scope.obj.displayName[j] + " ";
+              data[i][scope.customDisplayName] +=
+                scope.obj.displayName[j] + " ";
             }
           }
         }
