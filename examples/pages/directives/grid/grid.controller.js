@@ -39,6 +39,7 @@
                     }
                 }
             ]
+            , displayNameFormat: (data) => { return `کاربر به نام ${data.testName}` }
             , rowClass: () => { return 'text-danger' }
             , globalSearch: true
         }

@@ -47,7 +47,11 @@ export default function kamaGrid(
     scope.obj.hideHeader = scope.obj.hideHeader || false;
     scope.obj.hideFooter = scope.obj.hideFooter || false;
     scope.obj.displayNameFormat = scope.obj.displayNameFormat || [];
-    scope.obj.rowClass = scope.obj.rowClass || function () { return '' };
+    scope.obj.rowClass =
+      scope.obj.rowClass ||
+      function() {
+        return "";
+      };
     scope.obj.add = add;
     scope.obj.edit = edit;
     scope.obj.remove = remove;
@@ -154,9 +158,13 @@ export default function kamaGrid(
     function remove(item) {
       scope.deleteBuffer = item;
       scope.displayName = "";
-      for (let i = 0; i < scope.obj.displayNameFormat.length; i++) {
-        scope.displayName +=
-          scope.deleteBuffer[scope.obj.displayNameFormat[i]] + " ";
+      if (typeof scope.obj.displayNameFormat === "function") {
+        scope.displayName = scope.obj.displayNameFormat(item);
+      } else {
+        for (let i = 0; i < scope.obj.displayNameFormat.length; i++) {
+          scope.displayName +=
+            scope.deleteBuffer[scope.obj.displayNameFormat[i]] + " ";
+        }
       }
 
       element.find(".grid-delete-confirmation-modal").modal("show");
