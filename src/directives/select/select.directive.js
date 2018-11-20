@@ -46,11 +46,11 @@ export default function kamaSelect($q, toolsService, $timeout) {
           if (repo.loading) return repo.text;
 
           return `<div style="cursor: pointer">${
-            repo[scope.obj.displayName]
+            repo[scope.customDisplayName]
           }</div>`;
         },
         templateSelection: repo => {
-          return repo[scope.obj.displayName] || repo.text;
+          return repo[scope.customDisplayName] || repo.text;
         },
         minimumInputLength: scope.obj.minimumInputLength,
         ajax: {
@@ -146,7 +146,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
               addDisplayName([result]);
               let lazySelect = $(element.find(".kama-lazyselect")[0]);
               let option = new Option(
-                result[scope.obj.displayName],
+                result[scope.customDisplayName],
                 result[scope.obj.uniqueId],
                 true,
                 true

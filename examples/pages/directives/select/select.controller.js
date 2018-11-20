@@ -36,14 +36,11 @@
         example.select3 = {
             bindingObject: example.test3
             , parameters: { ID: 'TestID', Name: 'TestName' }
-            // , displayName: ['FirstName', 'LastName']
+            , displayName: ['Name', 'ID']
             , lazy: true
             , listService: universities
             , getService: getOrgan
             , searchBy: 'FirstName'
-            , onChange: (selected, props) => {
-                debugger
-            }
         }
         
         function universities(options) {
