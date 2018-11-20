@@ -2,13 +2,15 @@
   "alertService",
   "loadingService",
   "toolsService",
-  "$filter"
+  "$filter",
+  "$q"
 ];
 export default function kamaGrid(
   alertService,
   loadingService,
   toolsService,
-  $filter
+  $filter,
+  $q
 ) {
   let directive = {
     link: link,
@@ -79,9 +81,13 @@ export default function kamaGrid(
 
     Object.defineProperty(scope.obj, "total", {
       get: () => {
-        if (scope.obj.items && scope.obj.items.length > 0)
+        if (
+          scope.obj.items &&
+          scope.obj.items.length > 0 &&
+          scope.obj.items[0].Total
+        )
           return scope.obj.items[0].Total;
-        else return 0;
+        else return scope.total;
       }
     });
     Object.defineProperty(scope.obj, "result", {
@@ -103,24 +109,51 @@ export default function kamaGrid(
 
     // rename to 'refresh' or 'update' after migration to new system completed
     function getlist(loading) {
-      if (loading === false) return getItems();
-      else {
-        loadingService.show();
-        return getItems()
-          .then(loadingService.hide)
-          .catch(error => {
-            loadingService.hide();
-            alertService.error(error);
-          });
-      }
+      return $q
+        .resolve()
+        .then(() => {
+          if (loading === false) return getItems();
+          else {
+            loadingService.show();
+            return getItems()
+              .then(loadingService.hide)
+              .catch(error => {
+                loadingService.hide();
+                alertService.error(error);
+              });
+          }
+        })
+        .then(() => {
+          scope.obj.loadingTotal = true;
+          if (scope.obj.getTotalCount)
+            return scope.obj.getTotalCount(scope.obj.options()).then(result => {
+              return result.Total;
+            });
+          else return scope.obj.items[0].Total;
+        })
+        .then(total => {
+          let pageCount = 1;
+          scope.total = total || 0;
+          if (total) pageCount = Math.ceil(total / scope.obj.pageSize);
+
+          scope.obj.pageCount = Array.apply(null, {
+            length: pageCount + 1
+          }).map(Number.call, Number);
+          scope.obj.pageCount.shift();
+          scope.obj.loadingTotal = false;
+
+          return scope.obj.items;
+        });
     }
     function previousPage() {
+      if (scope.obj.loadingTotal) return;
       if (scope.obj.pageIndex > 1) {
         scope.obj.pageIndex--;
         scope.obj.getlist();
       }
     }
     function nextPage() {
+      if (scope.obj.loadingTotal) return;
       if (
         scope.obj.pageCount &&
         scope.obj.pageIndex < scope.obj.pageCount.length
@@ -218,15 +251,6 @@ export default function kamaGrid(
       options.PageIndex = scope.obj.pageIndex;
 
       return scope.obj.listService(options).then(items => {
-        let pageCount = 1;
-        if (items.length && items[0].Total)
-          pageCount = Math.ceil(items[0].Total / scope.obj.pageSize);
-
-        scope.obj.pageCount = Array.apply(null, { length: pageCount + 1 }).map(
-          Number.call,
-          Number
-        );
-        scope.obj.pageCount.shift();
         return (scope.obj.items = items);
       });
     }
