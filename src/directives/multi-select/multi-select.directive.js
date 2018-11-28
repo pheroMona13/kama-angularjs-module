@@ -83,6 +83,7 @@ export default function kamaMultiSelect($timeout) {
       let selectedValues = [];
 
       if (
+        scope.obj.items &&
         scope.obj.items.length &&
         scope.obj.bindingObject.model[scope.obj.model] &&
         scope.obj.bindingObject.model[scope.obj.model].length
