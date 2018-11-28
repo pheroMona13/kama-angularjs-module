@@ -52,7 +52,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="item in displayedItems" class="{{obj.rowClass(item)}}">
-        <td>{{ (obj.pageIndex - 1) * obj.pageSize + $index + 1 }}</td>
+        <td>{{ (pageIndex - 1) * obj.pageSize + $index + 1 }}</td>
         <td ng-repeat="column in obj.columns">
           <span ng-if="!column.subItem" ng-click="column.onclick(item)">
             <span ng-class="{'link': !!column.onclick}">{{
@@ -101,8 +101,16 @@
       ng-options="option for option in obj.pageCount"
       ng-model="obj.pageIndex"
       ng-change="obj.getlist()"
+      ng-if="obj.totalPageCount <= 100"
     ></select>
-    از {{ obj.pageCount.length }} |
+    <input
+      type="text"
+      class="form-control pageindex-input"
+      ng-model="obj.pageIndex"
+      ng-keypress="obj.changePageIndex($event)"
+      ng-if="obj.totalPageCount > 100"
+    />
+    از {{ obj.totalPageCount }} |
     <a href="" ng-click="obj.nextPage()"
       >بعدی<i class="fa fa-chevron-left" aria-hidden="true"></i
     ></a>

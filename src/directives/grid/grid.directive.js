@@ -77,6 +77,7 @@ export default function kamaGrid(
     scope.obj.previousPage = previousPage;
     scope.obj.nextPage = nextPage;
     scope.obj.pageSizeChange = pageSizeChange;
+    scope.obj.changePageIndex = changePageIndex;
     scope.cellValue = cellValue;
 
     Object.defineProperty(scope.obj, "total", {
@@ -119,11 +120,13 @@ export default function kamaGrid(
               .then(loadingService.hide)
               .catch(error => {
                 loadingService.hide();
-                alertService.error(error);
+                alertService.error(error || "خطا در دریافت اطلاعات");
+                return $.reject();
               });
           }
         })
         .then(() => {
+          scope.pageIndex = scope.obj.pageIndex;
           scope.obj.loadingTotal = true;
           if (scope.obj.getTotalCount)
             return scope.obj.getTotalCount(scope.obj.options()).then(result => {
@@ -132,14 +135,17 @@ export default function kamaGrid(
           else return scope.obj.items[0].Total;
         })
         .then(total => {
-          let pageCount = 1;
+          scope.obj.totalPageCount = 1;
           scope.total = total || 0;
-          if (total) pageCount = Math.ceil(total / scope.obj.pageSize);
+          if (total)
+            scope.obj.totalPageCount = Math.ceil(total / scope.obj.pageSize);
 
-          scope.obj.pageCount = Array.apply(null, {
-            length: pageCount + 1
-          }).map(Number.call, Number);
-          scope.obj.pageCount.shift();
+          if (scope.obj.totalPageCount <= 100) {
+            scope.obj.pageCount = Array.apply(null, {
+              length: scope.obj.totalPageCount + 1
+            }).map(Number.call, Number);
+            scope.obj.pageCount.shift();
+          }
           scope.obj.loadingTotal = false;
 
           return scope.obj.items;
@@ -155,8 +161,9 @@ export default function kamaGrid(
     function nextPage() {
       if (scope.obj.loadingTotal) return;
       if (
-        scope.obj.pageCount &&
-        scope.obj.pageIndex < scope.obj.pageCount.length
+        (scope.obj.pageCount &&
+          scope.obj.pageIndex < scope.obj.pageCount.length) ||
+        scope.obj.pageIndex < scope.obj.totalPageCount
       ) {
         scope.obj.pageIndex++;
         scope.obj.getlist();
@@ -167,6 +174,9 @@ export default function kamaGrid(
         scope.obj.pageIndex = 1;
         scope.obj.getlist();
       }
+    }
+    function changePageIndex(event) {
+      if (event.keyCode === 13) scope.obj.getlist();
     }
     function add() {
       if (!scope.obj.preventDefaultAdd) {
