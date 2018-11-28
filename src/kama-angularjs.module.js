@@ -1,5 +1,5 @@
 ﻿import kamaAttachment from './directives/attachment/attachment.directive';
-import kamaPermission from './directives/authorization/permission.directive';
+import kamaPermission from './directives/permission/permission.directive';
 import kamaAutofocus from './directives/autofocus/autofocus.directive';
 import kamaDisplayEnum from './directives/display-enum/display-enum.directive';
 import kamaDisplayJalali from './directives/display-jalali/display-jalali.directive';
