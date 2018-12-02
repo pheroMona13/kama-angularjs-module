@@ -28,9 +28,12 @@
     "select2": "^4.0.6-rc.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "angular-route": "^1.6.4",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "babel-core": "6.26.3",
+    "babel-loader": "8.0.4",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "css-loader": "^0.28.7",
     "express": "^4.16.3",

@@ -27,6 +27,7 @@
             .when('/select', { templateUrl: 'pages/directives/select/select.html', controller: 'SelectController', controllerAs: 'example' })
             .when('/multi-select', { templateUrl: 'pages/directives/multi-select/multi-select.html', controller: 'MultiSelectController', controllerAs: 'example' })
             .when('/grid', { templateUrl: 'pages/directives/grid/grid.html', controller: 'GridController', controllerAs: 'example' })
+            .when('/checkboxes', { templateUrl: 'pages/directives/checkboxes/checkboxes.html', controller: 'CheckboxesController', controllerAs: 'example' })
 
             .when('/trust-as-html', { templateUrl: 'pages/filters/trust-as-html/trust-as-html.html' })
     }

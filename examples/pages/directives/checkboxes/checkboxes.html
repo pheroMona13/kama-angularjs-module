@@ -1,0 +1,57 @@
+<div class="panel panel-default" ng-init="tab = 1">
+  <div class="panel-heading">
+    <h3 class="panel-title">checkboxes directive</h3>
+  </div>
+  <div class="panel-body">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+      <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+      <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" ng-class="{'active': tab == 1}">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">display column</div>
+              <div class="panel-body">
+                <kama-checkboxes
+                  list="example.list"
+                  selected="example.selected"
+                ></kama-checkboxes>
+                <p>selected values: {{ example.selected }}</p>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">display tree</div>
+              <div class="panel-body">
+                <kama-checkboxes
+                  list="example.tree"
+                  selected="example.selected"
+                  display="tree"
+                ></kama-checkboxes>
+                <p>selected values: {{ example.selected }}</p>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">display table</div>
+              <div class="panel-body">
+                <kama-checkboxes
+                  list="example.list"
+                  selected="example.selected"
+                  display="table"
+                  columns="[{name: 'ID', title: 'شناسه'} , {name: 'Name', title: 'ستون'}]"
+                ></kama-checkboxes>
+                <p>selected values: {{ example.selected }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+      <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+    </div>
+  </div>
+</div>

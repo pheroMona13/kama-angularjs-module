@@ -1,0 +1,80 @@
+﻿<div class="row kama-checkboxes">
+  <!-- display tree -->
+  <div class="col-xs-12" ng-if="display === 'tree'">
+    <ul>
+      <li ng-repeat="checkbox in list" ng-include="'checkbox-tree.html'"></li>
+    </ul>
+  </div>
+
+  <!-- display column -->
+  <div
+    class="col-xs-12 col-sm-6 col-md-4"
+    ng-if="display === 'column'"
+    ng-repeat="checkbox in list"
+  >
+    <label class="checkbox-label">
+      <input
+        type="checkbox"
+        ng-click="updateSelection($event, checkbox)"
+        ng-checked="isSelected(checkbox)"
+      />
+      <span>{{ checkbox[displayName] }}</span>
+    </label>
+  </div>
+
+  <!-- display table -->
+  <div class="col-xs-12" ng-if="display === 'table'">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>
+            <span
+              ng-repeat="column in columns track by $index"
+              ng-if="column.name === displayName"
+              >{{ column.title }}</span
+            >
+          </th>
+          <th
+            ng-repeat="column in columns track by $index"
+            ng-if="column.name !== displayName"
+          >
+            {{ column.title }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="checkbox in list">
+          <td>
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                ng-click="updateSelection($event, checkbox)"
+                ng-checked="isSelected(checkbox)"
+              />
+              <span>{{ checkbox[displayName] }}</span>
+            </label>
+          </td>
+          <td
+            ng-repeat="column in columns track by $index"
+            ng-if="column.name !== displayName"
+          >
+            {{ checkbox[column.name] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/ng-template" id="checkbox-tree.html">
+  <label class="checkbox-label">
+      <input type="checkbox"
+             ng-click="updateSelection($event, checkbox)"
+             ng-checked="isSelected(checkbox)" />
+      <span>{{checkbox[displayName]}}</span>
+  </label>
+  <ul ng-if="checkbox.children.length">
+      <li ng-repeat="checkbox in checkbox.children"
+          ng-include="'checkbox-tree.html'"></li>
+  </ul>
+</script>
