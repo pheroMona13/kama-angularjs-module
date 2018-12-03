@@ -284,19 +284,26 @@ export default function toolsService() {
     popupWin.document.close();
   }
   function dateToJalali(date) {
-    let jalali;
-
     if (date && date instanceof Date && typeof date.getMonth === "function") {
-      jalali = gregorianToJalali(
+      return convertToJalali(date);
+    } else if (date && typeof date === "string") {
+      let dateObject = new Date(date);
+      if (dateObject instanceof Date && !isNaN(dateObject))
+        return convertToJalali(dateObject);
+      else return "";
+    } else return "";
+
+    function convertToJalali(date) {
+      let jalali = gregorianToJalali(
         date.getFullYear(),
         date.getMonth() + 1,
         date.getDate()
       );
+
       return (
         jalali[0] + "/" + doubleDigit(jalali[1]) + "/" + doubleDigit(jalali[2])
       );
-    } else return "";
-
+    }
     function doubleDigit(digit) {
       digit = digit.toString();
 
