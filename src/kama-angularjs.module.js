@@ -13,6 +13,7 @@ import kamaReadMore from "./directives/read-more/read-more.directive";
 import kamaSelect from "./directives/select/select.directive";
 import kamaMultiSelect from "./directives/multi-select/multi-select.directive";
 import kamaCheckboxes from "./directives/checkboxes/checkboxes.directive";
+import kamaGridSort from "./directives/grid-sort/grid-sort.directive";
 
 import ajaxMultiService from "./services/ajax-multi.service";
 import ajaxService from "./services/ajax.service";
@@ -51,6 +52,7 @@ angular
   .directive("kamaSelect", kamaSelect)
   .directive("kamaMultiSelect", kamaMultiSelect)
   .directive("kamaCheckboxes", kamaCheckboxes)
+  .directive("kamaGridSort", kamaGridSort)
 
   .factory("ajaxMultiService", ajaxMultiService)
   .factory("ajaxService", ajaxService)

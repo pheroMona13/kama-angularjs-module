@@ -1,32 +1,31 @@
 <div class="panel panel-default" ng-init="tab = 1">
-    <div class="panel-heading">
-        <h3 class="panel-title">grid directive</h3>
-    </div>
-    <div class="panel-body">
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a data-toggle="tab" ng-click="tab = 1">sample</a>
-            </li>
-            <li>
-                <a data-toggle="tab" ng-click="tab = 2">source code</a>
-            </li>
-            <li>
-                <a data-toggle="tab" ng-click="tab = 3">docs</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane" ng-class="{'active': tab == 1}">
-                <div class="row" style="direction: rtl">
-                    <div class="col-xs-12">
-                        <kama-grid obj="example.test.grid"></kama-grid>
-                    </div>
-                    <div class="col-xs-12" style="margin-top: 15px">
-                        <kama-grid obj="example.test.grid2"></kama-grid>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
-            <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
+  <div class="panel-heading"><h3 class="panel-title">grid directive</h3></div>
+  <div class="panel-body">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" ng-click="tab = 1">sample</a></li>
+      <li><a data-toggle="tab" ng-click="tab = 2">source code</a></li>
+      <li><a data-toggle="tab" ng-click="tab = 3">docs</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" ng-class="{'active': tab == 1}">
+        <div class="row" style="direction: rtl">
+          <div class="col-xs-12">
+            <kama-grid obj="example.test.grid"></kama-grid>
+          </div>
+          <div class="col-xs-12" style="margin-top: 15px">
+            <kama-grid obj="example.test.grid2"></kama-grid>
+          </div>
+          <div class="col-xs-12">
+            {{ example.test.model.SortExp }}
+            <kama-grid-sort
+              obj="example.test"
+              columns="example.test.grid2.columns"
+            ></kama-grid-sort>
+          </div>
         </div>
+      </div>
+      <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
+      <div class="tab-pane" ng-class="{'active': tab == 3}"></div>
     </div>
+  </div>
 </div>

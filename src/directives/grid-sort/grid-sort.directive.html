@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table-responsive">
+      <!-- selected columns -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 60px" ng-if="obj.model[sortBy].length > 1">
+              ترتیب
+            </th>
+            <th>ستون</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="column in obj.model[sortBy]">
+            <td ng-if="obj.model[sortBy].length > 1">
+              <i
+                class="fa fa-arrow-up"
+                style="color: lightgray"
+                ng-if="$first"
+                aria-hidden="true"
+              ></i>
+              <i
+                class="fa fa-arrow-up"
+                style="cursor: pointer"
+                ng-if="!$first"
+                ng-click="changeOrder(column,'up')"
+                aria-hidden="true"
+              ></i>
+              <i
+                class="fa fa-arrow-down"
+                style="color: lightgray"
+                ng-if="$last"
+                aria-hidden="true"
+              ></i>
+              <i
+                class="fa fa-arrow-down"
+                style="cursor: pointer"
+                ng-if="!$last"
+                ng-click="changeOrder(column,'down')"
+                aria-hidden="true"
+              ></i>
+            </td>
+            <td>{{ column.displayName }}</td>
+            <td>
+              <form>
+                <label class="checkbox-label">
+                  <input type="radio" value="ASC" ng-model="column.SortOrder" />
+                  صعودی
+                </label>
+                <label class="checkbox-label">
+                  <input
+                    type="radio"
+                    value="DESC"
+                    ng-model="column.SortOrder"
+                  />
+                  نزولی
+                </label>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- columns -->
+    <kama-checkboxes
+      list="columns"
+      selected="obj.model[sortBy]"
+      unique-id="id"
+      display-name="displayName"
+      display="table"
+      columns="[{name: 'displayName', title: 'ستون'}]"
+      process="process"
+    ></kama-checkboxes>
+  </div>
+</div>
