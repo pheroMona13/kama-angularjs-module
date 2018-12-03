@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col-xs-12">
-    <div class="table-responsive">
+  <div class="form-group col-xs-12" ng-if="obj.model[sortBy].length">
+    <div class="table-responsive kama-grid-table">
       <!-- selected columns -->
-      <table class="table table-bordered">
+      <table class="table table-bordered table-condensed">
         <thead>
           <tr>
             <th style="width: 60px" ng-if="obj.model[sortBy].length > 1">
@@ -17,13 +17,13 @@
             <td ng-if="obj.model[sortBy].length > 1">
               <i
                 class="fa fa-arrow-up"
-                style="color: lightgray"
+                style="color: lightgray; margin-left: 3px"
                 ng-if="$first"
                 aria-hidden="true"
               ></i>
               <i
                 class="fa fa-arrow-up"
-                style="cursor: pointer"
+                style="cursor: pointer; margin-left: 3px"
                 ng-if="!$first"
                 ng-click="changeOrder(column,'up')"
                 aria-hidden="true"
@@ -63,7 +63,9 @@
         </tbody>
       </table>
     </div>
+  </div>
 
+  <div class="col-xs-12">
     <!-- columns -->
     <kama-checkboxes
       list="columns"
