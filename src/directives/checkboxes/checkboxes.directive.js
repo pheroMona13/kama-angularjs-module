@@ -10,7 +10,8 @@ export default function kamaCheckboxes() {
       uniqueId: "@?uniqueId",
       displayName: "@?displayName",
       display: "@?display", // column, tree and table
-      columns: "=?columns" // [{ name: binding value name, title: display name }]
+      columns: "=?columns", // [{ name: binding value name, title: display name }]
+      process: "&?process" // function that accepts selected object and returns processed object
     }
   };
 
@@ -20,6 +21,11 @@ export default function kamaCheckboxes() {
     scope.uniqueId = scope.uniqueId || "ID";
     scope.displayName = scope.displayName || "Name";
     scope.display = scope.display || "column";
+    scope.process =
+      scope.process ||
+      function(data) {
+        return data;
+      };
     scope.isSelected = isSelected;
     scope.updateSelection = updateSelection;
 
@@ -42,8 +48,8 @@ export default function kamaCheckboxes() {
       ) {
         if (scope.display === "tree") {
           let { children, ...selectedObject } = selected;
-          scope.selected.push(selectedObject);
-        } else scope.selected.push(selected);
+          scope.selected.push(scope.process()(selectedObject));
+        } else scope.selected.push(scope.process()(selected));
       } else if (action === "remove") {
         let selectedIndex = scope.selected.findIndex(item => {
           return item[scope.uniqueId] === selected[scope.uniqueId];
