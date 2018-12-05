@@ -11,7 +11,8 @@ export default function kamaCheckboxes() {
       displayName: "@?displayName",
       display: "@?display", // column, tree and table
       columns: "=?columns", // [{ name: binding value name, title: display name }]
-      process: "&?process" // function that accepts selected object and returns processed object
+      process: "&?process", // function that accepts selected object and returns processed object
+      search: "@?search"
     }
   };
 
@@ -21,10 +22,11 @@ export default function kamaCheckboxes() {
     scope.uniqueId = scope.uniqueId || "ID";
     scope.displayName = scope.displayName || "Name";
     scope.display = scope.display || "column";
+    scope.searchObject = {};
     scope.process =
       scope.process ||
       function() {
-        return (data) => {
+        return data => {
           return data;
         };
       };

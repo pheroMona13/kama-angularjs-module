@@ -1,4 +1,9 @@
 ﻿<div class="row kama-checkboxes">
+  <div class="form-group col-xs-12" ng-if="search && display !== 'tree'">
+    <label>جستجو</label>
+    <input type="text" class="form-control" ng-model="searchObject[displayName]" />
+  </div>
+
   <!-- display tree -->
   <div class="col-xs-12" ng-if="display === 'tree'">
     <ul>
@@ -10,7 +15,7 @@
   <div
     class="col-xs-12 col-sm-6 col-md-4"
     ng-if="display === 'column'"
-    ng-repeat="checkbox in list"
+    ng-repeat="checkbox in list | filter: searchObject"
   >
     <label class="checkbox-label">
       <input
@@ -43,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="checkbox in list">
+        <tr ng-repeat="checkbox in list | filter: searchObject">
           <td>
             <label class="checkbox-label">
               <input
