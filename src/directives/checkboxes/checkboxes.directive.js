@@ -23,8 +23,10 @@ export default function kamaCheckboxes() {
     scope.display = scope.display || "column";
     scope.process =
       scope.process ||
-      function(data) {
-        return data;
+      function() {
+        return (data) => {
+          return data;
+        };
       };
     scope.isSelected = isSelected;
     scope.updateSelection = updateSelection;
