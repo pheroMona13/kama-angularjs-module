@@ -275,30 +275,42 @@ export default function kamaGrid(
         };
       switch (column.type) {
         case "date":
-          return process(toolsService.dateToJalali(item[column.name]));
+          return process(toolsService.dateToJalali(getValue(item, column)));
 
         case "enum":
-          return process(column.source[item[column.name]]);
+          return process(column.source[getValue(item, column)]);
 
         case "money":
-          return process($filter("number")(item[column.name]));
+          return process($filter("number")(getValue(item, column)));
 
         case "time":
           if (
-            Object.prototype.toString.call(item[column.name]) ===
+            Object.prototype.toString.call(getValue(item, column)) ===
             "[object Date]"
           )
             return process(
-              item[column.name].toLocaleTimeString([], {
+              getValue(item, column).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
                 hour12: false
               })
             );
-          else return process(toolsService.minutesToTime(item[column.name]));
+          else return process(toolsService.minutesToTime(getValue(item, column)));
 
         default:
-          return process(item[column.name]);
+          return process(getValue(item, column));
+      }
+
+      function getValue(item, column) {
+        let keys = column.name.split(".");
+        if (keys.length === 1) return item[column.name];
+        else {
+          let value = item;
+          for (let i = 0; i < keys.length; i++) {
+            value = value[keys[i]];
+          }
+          return value;
+        }
       }
     }
     function openModal() {
