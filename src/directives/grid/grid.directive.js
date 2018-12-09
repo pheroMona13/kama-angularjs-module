@@ -132,7 +132,9 @@ export default function kamaGrid(
             return scope.obj.getTotalCount(scope.obj.options()).then(result => {
               return result.Total;
             });
-          else return scope.obj.items[0].Total;
+          else if (scope.obj.items && scope.obj.items.length)
+            return scope.obj.items[0].Total;
+          else return 0;
         })
         .then(total => {
           scope.obj.totalPageCount = 1;
@@ -261,6 +263,7 @@ export default function kamaGrid(
       options.PageIndex = scope.obj.pageIndex;
 
       return scope.obj.listService(options).then(items => {
+        scope.total = 0;
         return (scope.obj.items = items);
       });
     }
