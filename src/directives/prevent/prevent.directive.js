@@ -11,13 +11,19 @@ export default function kamaPrevent(alertService) {
   function link(scope, element, attrs, ngModel) {
     element.on("keypress", function(event) {
       let pattern = attrs.kamaPrevent;
+      
       let input = String.fromCharCode(
         !event.charCode ? event.which : event.charCode
       );
 
       // global exceptions
       // 13: enter key
-      if (event.charCode === 13) return;
+      // only 13 has issues w/ firefox 64 and earlier
+      if (
+        [9, 13, 16, 17, 18, 27, 123].indexOf(event.which) !== -1 ||
+        [9, 13, 16, 17, 18, 27, 123].indexOf(event.keyCode) !== -1
+      )
+        return;
 
       switch (pattern) {
         case "number":
