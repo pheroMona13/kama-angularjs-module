@@ -11,7 +11,7 @@ export default function kamaPrevent(alertService) {
   function link(scope, element, attrs, ngModel) {
     element.on("keypress", function(event) {
       let pattern = attrs.kamaPrevent;
-      
+
       let input = String.fromCharCode(
         !event.charCode ? event.which : event.charCode
       );
@@ -53,8 +53,16 @@ export default function kamaPrevent(alertService) {
           break;
         default:
           if (pattern) {
-            pattern = new RegExp(pattern);
-            if (pattern.test(input)) {
+            let isNot = pattern[0] === "!" ? true : false;
+            let patternRegex = isNot
+              ? pattern.substring(1, pattern.length)
+              : pattern;
+            patternRegex = new RegExp(patternRegex);
+
+            if (
+              (!isNot && patternRegex.test(input)) ||
+              (isNot && !patternRegex.test(input))
+            ) {
               event.preventDefault();
               alertService.error("کاراکتر وارد شده غیرمجاز است", {
                 unique: true

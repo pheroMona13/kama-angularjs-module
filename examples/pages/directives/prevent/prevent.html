@@ -27,6 +27,10 @@
                         <label>prevent [0-2a-cD-F] (custom regex)</label>
                         <input type="text" class="form-control" ng-model="test4" kama-prevent="[0-2a-cD-F]" />
                     </div>
+                    <div class="form-group col-xs-12">
+                        <label>prevent all except [3-5] (custom regex)</label>
+                        <input type="text" class="form-control" ng-model="test5" kama-prevent="![3-5]" />
+                    </div>
                 </div>
             </div>
             <div class="tab-pane" ng-class="{'active': tab == 2}"></div>
