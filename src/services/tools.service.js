@@ -18,7 +18,8 @@ export default function toolsService() {
       email: validateEmail,
       phoneNumber: validatePhoneNumber,
       jalali: validateJalali,
-      guid: validateGuid
+      guid: validateGuid,
+      year: validateYear
     },
     extend: extend,
     arrayEnum: arrayEnum,
@@ -103,6 +104,10 @@ export default function toolsService() {
     return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
       guid
     );
+  }
+  function validateYear(year) {
+    if (year >= 1300 && year <= 1450) return true;
+    else return false;
   }
   function extend() {
     // source: https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
