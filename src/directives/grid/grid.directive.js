@@ -103,6 +103,7 @@ export default function kamaGrid(
       }
     });
 
+    scope.pageIndex = scope.obj.pageIndex;
     if (scope.obj.initLoad) {
       loadingService.show();
       scope.obj.getlist();
