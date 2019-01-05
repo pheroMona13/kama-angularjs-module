@@ -1,6 +1,6 @@
 {
   "name": "kama-angularjs-module",
-  "version": "0.9.41",
+  "version": "0.9.42",
   "description": "Set of AngularJS directives and services developed by Kama team",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
-    "kamadatepicker": "^1.4.3",
+    "kamadatepicker": "^1.4.6",
     "select2": "^4.0.6-rc.1"
   },
   "devDependencies": {

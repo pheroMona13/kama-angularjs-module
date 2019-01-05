@@ -1,5 +1,5 @@
-﻿kamaInput.$inject = ["$timeout", "toolsService"];
-export default function kamaInput($timeout, toolsService) {
+﻿kamaInput.$inject = ["$timeout", "toolsService", "$rootScope"];
+export default function kamaInput($timeout, toolsService, $rootScope) {
   let directive = {
     link: link,
     template: require("./input.directive.html"),
@@ -21,7 +21,7 @@ export default function kamaInput($timeout, toolsService) {
   return directive;
 
   function link(scope, element, attrs) {
-    let defaultDatepickerFormat = {
+    let defaultDatepickerFormat = $rootScope.defaultDatepickerFormat || {
       nextButtonIcon: "fa fa-arrow-circle-right",
       previousButtonIcon: "fa fa-arrow-circle-left",
       buttonsColor: "#2a3f54",
@@ -29,7 +29,9 @@ export default function kamaInput($timeout, toolsService) {
       markHolidays: true,
       highlightSelectedDay: true,
       sync: true,
-      gotoToday: true
+      gotoToday: true,
+      pastYearsCount: 100,
+      futureYearsCount: 50
     };
     scope.maxlength = scope.maxlength || 524288;
     scope.identifier = scope.identifier || toolsService.randomString(10);
