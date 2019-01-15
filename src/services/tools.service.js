@@ -9,7 +9,8 @@
 // - standardizedEnum => arrayEnum
 // - isValidJalali => validate.jalali
 
-export default function toolsService() {
+toolsService.$inject = ["$rootScope", "$location"];
+export default function toolsService($rootScope, $location) {
   let service = {
     checkPasswordPolicy: checkPasswordPolicy,
     validate: {
@@ -385,6 +386,8 @@ export default function toolsService() {
   }
   function checkPermission(input, options) {
     let isAuthorized;
+
+    options = options || {};
 
     if (typeof input === "string")
       isAuthorized =
