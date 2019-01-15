@@ -112,7 +112,11 @@ export default function kamaAttachment(alertService) {
           .then(() => {
             if (scope.obj.autoSave)
               return save().then(() => {
-                scope.obj.successUpload = true;
+                /* 
+                  successUpload must reset after save
+                  create separate states?
+                */
+                // scope.obj.successUpload = true;
                 alertService.success("فایل با موفقیت آپلود و ذخیره شد");
               });
             else {
@@ -148,6 +152,7 @@ export default function kamaAttachment(alertService) {
       element.find("input[type='file']").val(null);
       scope.obj.bindingObject = {};
       scope.fileSelected = false;
+      scope.obj.successUpload = null;
     }
     function download() {
       return scope.obj.downloadService(scope.obj.bindingObject);
