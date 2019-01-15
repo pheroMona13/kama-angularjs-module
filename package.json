@@ -21,7 +21,7 @@
     "angular": "^1.6.4",
     "angular-sanitize": "^1.7.2",
     "angular-smart-table": "^2.1.11",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "kamadatepicker": "^1.4.6",
