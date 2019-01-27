@@ -124,7 +124,7 @@ export default function kamaAttachment(alertService) {
               alertService.success("فایل با موفقیت آپلود شد");
             }
           })
-          .catch((error) => {
+          .catch(error => {
             scope.uploading = false; //**state
             alertService.error(error);
           });
@@ -166,7 +166,9 @@ export default function kamaAttachment(alertService) {
       return scope.obj.deleteService(scope.obj.bindingObject).then(reset);
     }
     function save() {
-      return scope.obj.saveService(getParams());
+      return scope.obj.saveService(getParams()).then(result => {
+        scope.obj.bindingObject = result;
+      });
     }
   }
 }
