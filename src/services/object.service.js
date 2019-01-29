@@ -16,10 +16,6 @@
                         case 'select':
                             this[key].update();
                             break;
-                        case 'attachment':
-                            if (this[key].bindingObject && Object.keys(this[key].bindingObject).length === 0)
-                                this[key].reset();
-                            break;
                     }
                 }
             }
