@@ -22,8 +22,7 @@ export default function authInterceptorService($q, $timeout, globalService) {
   }
   function responseError(rejection) {
     if (rejection.status === 401) {
-      document.body.innerHTML =
-        '<div style="height: 100vh; line-height: 100vh; text-align: center; font-size: 18px;">زمان اعتبار شما به پایان رسیده، مجددا وارد سامانه شوید</div>';
+      document.body.innerHTML = '';
       $timeout(() => {
         window.location.reload();
       }, 2000);
