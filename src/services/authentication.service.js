@@ -16,6 +16,7 @@ export default function authenticationService(globalService) {
         globalService.remove('currentUser');
         globalService.remove('currentUserPosition');
         globalService.remove('currentUserPositions');
+        globalService.remove('profilePicture');
     }
     function isAuthenticated() {
         return (angular.element('input[name="__isAuthenticated"]').attr('value') === 'true');
