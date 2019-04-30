@@ -23,6 +23,8 @@
         <span class="attachment-link remove" ng-click="obj.remove()" ng-if="!obj.readOnly()">[حذف فایل]</span>
         <span class="attachment-state">{{obj.bindingObject.FileName}}</span>
     </span>
+
+    <p ng-if="obj.description && obj.bindingObject && obj.description(obj.bindingObject)">{{obj.description(obj.bindingObject)}}</p>
 </div>
 
 <div class="modal fade delete-attachment-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="deleteAttachmentConfirmationLabel" aria-hidden="true">
