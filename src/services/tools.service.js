@@ -82,7 +82,7 @@ export default function toolsService($rootScope, $location) {
   }
   function yearDiff(d1, d2) {
     let years;
-    years = (d2.getFullYear() - d1.getFullYear());
+    years = d2.getFullYear() - d1.getFullYear();
     return years <= 0 ? 0 : years;
   }
   function numberToString(num){
