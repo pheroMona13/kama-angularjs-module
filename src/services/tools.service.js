@@ -75,14 +75,14 @@ export default function toolsService($rootScope, $location) {
   }
   function monthDiff(d1, d2) {
     let months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months = Math.abs(d2.getFullYear() - d1.getFullYear()) * 12;
     months -= d1.getMonth() + 1;
     months += d2.getMonth();
     return months <= 0 ? 0 : months;
   }
   function yearDiff(d1, d2) {
     let years;
-    years = d2.getFullYear() - d1.getFullYear();
+    years = Math.abs(d2.getFullYear() - d1.getFullYear());
     return years <= 0 ? 0 : years;
   }
   function numberToString(num) {
