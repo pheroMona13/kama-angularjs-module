@@ -107,19 +107,19 @@ export default function toolsService($rootScope, $location) {
      *
      * @type {string}
      */
-    spliter = " و ";
+    let spliter = " و ";
 
     /**
      *
      * @type {string}
      */
-    zero = "صفر";
+    let zero = "صفر";
 
     /**
      *
      * @type {*[]}
      */
-    Letters = [
+    let Letters = [
       ["", "یك", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"],
       [
         "ده",
@@ -183,7 +183,7 @@ export default function toolsService($rootScope, $location) {
       if (typeof num === "number") {
         num = num.toString();
       }
-      NumberLength = num.length % 3;
+      let NumberLength = num.length % 3;
       if (NumberLength === 1) {
         num = "00" + num;
       } else if (NumberLength === 2) {
@@ -202,13 +202,15 @@ export default function toolsService($rootScope, $location) {
       if (parseInt(num) === 0) {
         return "";
       }
-      parsedInt = parseInt(num);
+      let parsedInt = parseInt(num);
       if (parsedInt < 10) {
         return Letters[0][parsedInt];
       }
       if (parsedInt <= 20) {
         return Letters[1][parsedInt - 10];
       }
+      let one;
+      let ten;
       if (parsedInt < 100) {
         one = parsedInt % 10;
         ten = (parsedInt - one) / 10;
@@ -218,10 +220,10 @@ export default function toolsService($rootScope, $location) {
         return Letters[2][ten];
       }
       one = parsedInt % 10;
-      hundreds = (parsedInt - (parsedInt % 100)) / 100;
+      let hundreds = (parsedInt - (parsedInt % 100)) / 100;
       ten = (parsedInt - (hundreds * 100 + one)) / 10;
-      out = [Letters[3][hundreds]];
-      SecendPart = ten * 10 + one;
+      let out = [Letters[3][hundreds]];
+      let SecendPart = ten * 10 + one;
       if (SecendPart > 0) {
         if (SecendPart < 10) {
           out.push(Letters[0][SecendPart]);
@@ -250,14 +252,14 @@ export default function toolsService($rootScope, $location) {
           return "خارج از محدوده";
         }
         //Split to sections
-        SplitedNumber = PrepareNumber(num);
+        let SplitedNumber = PrepareNumber(num);
 
         //Fetch Sections and convert
-        funcout = [];
-        SplitLength = SplitedNumber.length;
-        for (i = 0; i < SplitLength; i++) {
-          SectionTitle = Letters[4][SplitLength - (i + 1)];
-          converted = ThreeNumbersToLetter(SplitedNumber[i]);
+        let funcout = [];
+        let SplitLength = SplitedNumber.length;
+        for (let i = 0; i < SplitLength; i++) {
+          let SectionTitle = Letters[4][SplitLength - (i + 1)];
+          let converted = ThreeNumbersToLetter(SplitedNumber[i]);
           if (converted !== "") {
             funcout.push(converted + SectionTitle);
           }
