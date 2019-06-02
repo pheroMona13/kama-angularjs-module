@@ -32,7 +32,8 @@ export default function kamaMultiSelect($timeout) {
     let selectElement = $(element.find("select")[0]).select2({
       multiple: true,
       dir: "rtl",
-      placeholder: "یک یا چند مورد را انتخاب کنید"
+      placeholder: "یک یا چند مورد را انتخاب کنید",
+      closeOnSelect: false
     });
     if (scope.obj.items && scope.obj.items.length)
       addDisplayName(scope.obj.items);
