@@ -10,7 +10,7 @@
 
         function update() {
             for (let key in this) {
-                if (typeof (this[key]) === 'object' && this[key].moduleType) {
+                if (this[key] && typeof (this[key]) === 'object' && this[key].moduleType) {
                     switch (this[key].moduleType) {
                         case 'multi-select':
                         case 'select':
