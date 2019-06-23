@@ -65,6 +65,13 @@ export default function kamaGrid(
       function() {
         return false;
       };
+	 /*start custom*/
+	 scope.obj.hideHeaderAction = 
+		 scope.obj.hideHeaderAction ||
+		 function(){
+			 return false;
+		 }
+	/*end custom*/
     scope.obj.options =
       scope.obj.options ||
       function() {

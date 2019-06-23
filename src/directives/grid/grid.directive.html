@@ -4,6 +4,7 @@
     class="btn btn-link"
     style="text-decoration: none; color: #e0e3e6"
     ng-click="obj.add()"
+	ng-if="!obj.hideHeaderAction() && !obj.readOnly()"
   >
     <i
       class="fa fa-plus"
