@@ -276,13 +276,16 @@ export default function kamaGrid(
         };
       switch (column.type) {
         case "date":
-          return process(toolsService.dateToJalali(getValue(item, column)));
+          return process(
+            toolsService.dateToJalali(getValue(item, column)),
+            item
+          );
 
         case "enum":
-          return process(column.source[getValue(item, column)]);
+          return process(column.source[getValue(item, column)], item);
 
         case "money":
-          return process($filter("number")(getValue(item, column)));
+          return process($filter("number")(getValue(item, column)), item);
 
         case "time":
           if (
@@ -294,12 +297,17 @@ export default function kamaGrid(
                 hour: "2-digit",
                 minute: "2-digit",
                 hour12: false
-              })
+              }),
+              item
             );
-          else return process(toolsService.minutesToTime(getValue(item, column)));
+          else
+            return process(
+              toolsService.minutesToTime(getValue(item, column)),
+              item
+            );
 
         default:
-          return process(getValue(item, column));
+          return process(getValue(item, column), item);
       }
 
       function getValue(item, column) {
