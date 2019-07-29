@@ -59,6 +59,7 @@ export default function kamaGrid(
     scope.obj.remove = remove;
     scope.obj.confirmRemove = confirmRemove;
     scope.obj.getlist = getlist;
+    scope.obj.initLoading = scope.obj.initLoading === false ? false : true;
     scope.obj.update = update;
     scope.obj.readOnly =
       scope.obj.readOnly ||
@@ -104,10 +105,8 @@ export default function kamaGrid(
     });
 
     scope.pageIndex = scope.obj.pageIndex;
-    if (scope.obj.initLoad) {
-      loadingService.show();
-      scope.obj.getlist();
-    } else scope.obj.pageCount = [1];
+    if (scope.obj.initLoad) scope.obj.getlist(scope.obj.initLoading);
+    else scope.obj.pageCount = [1];
 
     // rename to 'refresh' or 'update' after migration to new system completed
     function getlist(loading) {
