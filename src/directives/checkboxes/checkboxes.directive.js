@@ -12,13 +12,17 @@ export default function kamaCheckboxes() {
       display: "@?display", // column, tree and table
       columns: "=?columns", // [{ name: binding value name, title: display name }]
       process: "&?process", // function that accepts selected object and returns processed object
-      search: "@?search"
+      search: "@?search",
+      hideHeader: "=?hideHeader",
+      hideSelectAll: "=?hideSelectAll",
+      hideSearch: "=?hideSearch"
     }
   };
 
   return directive;
 
   function link(scope, element, attrs) {
+    debugger;
     scope.uniqueId = scope.uniqueId || "ID";
     scope.displayName = scope.displayName || "Name";
     scope.display = scope.display || "column";
@@ -32,6 +36,7 @@ export default function kamaCheckboxes() {
       };
     scope.isSelected = isSelected;
     scope.updateSelection = updateSelection;
+    scope.selectAllFiltered = selectAllFiltered;
 
     function isSelected(obj) {
       if (scope.selected)
@@ -59,6 +64,26 @@ export default function kamaCheckboxes() {
           return item[scope.uniqueId] === selected[scope.uniqueId];
         });
         if (selectedIndex !== -1) scope.selected.splice(selectedIndex, 1);
+      }
+    }
+    function selectAllFiltered(filteredList) {
+      if (filteredList && filteredList.length) {
+        scope.selected = scope.selected || [];
+
+        filteredList.map(filteredItem => {
+          const index = scope.list.findIndex(item => {
+            return item[scope.uniqueId] === filteredItem[scope.uniqueId];
+          });
+          if (
+            scope.selected.findIndex(selectedItem => {
+              return (
+                scope.list[index][scope.uniqueId] ===
+                selectedItem[scope.uniqueId]
+              );
+            }) === -1
+          )
+            scope.selected.push(scope.list[index]);
+        });
       }
     }
   }

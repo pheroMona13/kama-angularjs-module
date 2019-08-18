@@ -9,7 +9,11 @@
   <!-- display column -->
   <div class="form-group col-xs-12" ng-if="search && display === 'column'">
     <label>جستجو</label>
-    <input type="text" class="form-control" ng-model="searchObject[displayName]" />
+    <input
+      type="text"
+      class="form-control"
+      ng-model="searchObject[displayName]"
+    />
   </div>
   <div
     class="col-xs-12 col-sm-6 col-md-4"
@@ -30,7 +34,7 @@
   <div class="col-xs-12" ng-if="display === 'table'">
     <table class="table table-bordered table-condensed">
       <thead>
-        <tr>
+        <tr ng-if="!hideHeader">
           <th>
             <span
               ng-repeat="column in columns track by $index"
@@ -45,14 +49,34 @@
             {{ column.title }}
           </th>
         </tr>
-        <tr>
-          <th colspan="columns.length">
-            <input type="text" placeholder="جستجو" class="form-control" ng-model="searchObject[displayName]" />
+        <tr ng-if="!hideSelectAll">
+          <th colspan="{{ columns.length }}">
+            <button
+              type="button"
+              class="btn btn-xs btn-default"
+              ng-click="selectAllFiltered(filteredList)"
+            >
+              انتخاب همه<span ng-if="searchObject[displayName]"
+                >‌ی فیلترشده‌ها <span>({{ filteredList.length }})</span></span
+              >
+            </button>
+          </th>
+        </tr>
+        <tr ng-if="!hideSearch">
+          <th colspan="{{ columns.length }}">
+            <input
+              type="text"
+              placeholder="جستجو"
+              class="form-control"
+              ng-model="searchObject[displayName]"
+            />
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="checkbox in list | filter: searchObject">
+        <tr
+          ng-repeat="checkbox in filteredList = (list | filter: searchObject)"
+        >
           <td>
             <label class="checkbox-label">
               <input
