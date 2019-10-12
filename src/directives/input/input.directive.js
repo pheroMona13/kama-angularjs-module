@@ -16,7 +16,8 @@ export default function kamaInput($timeout, toolsService, $rootScope) {
       readonly: "=?readonly",
       validator: "=?validator",
       position: "@?position",
-      parentId: "@?parentId"
+      parentId: "@?parentId",
+      onChange: "=?onChange",
     }
   };
 
@@ -41,9 +42,10 @@ export default function kamaInput($timeout, toolsService, $rootScope) {
         : "bottom",
       parentId: scope.parentId
     };
-
+    
     scope.maxlength = scope.maxlength || 524288;
     scope.identifier = scope.identifier || toolsService.randomString(10);
+    scope.onChange = scope.onChange || function() {};
     scope.clear = clear;
     scope.focus = focus;
     scope.validate = validate;

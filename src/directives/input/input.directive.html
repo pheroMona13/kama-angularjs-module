@@ -27,6 +27,7 @@
   ng-model="model"
   ng-class="{'border-green': validate(), 'border-red': validate() === false}"
   ng-readonly="readonly"
+  ng-change="onChange(model)"
   kama-format-view="{{ type }}"
   kama-prevent="{{ preventPattern }}"
   id="{{ identifier }}"
