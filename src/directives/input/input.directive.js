@@ -25,8 +25,8 @@ export default function kamaInput($timeout, toolsService, $rootScope) {
 
     function link(scope, element, attrs) {
         let defaultDatepickerFormat = $rootScope.defaultDatepickerFormat || {
-            nextButtonIcon: "fa fa-arrow-circle-right",
-            previousButtonIcon: "fa fa-arrow-circle-left",
+            previousButtonIcon: "fa fa-arrow-circle-right",
+            nextButtonIcon: "fa fa-arrow-circle-left",
             buttonsColor: "#2a3f54",
             swapNextPrev: true,
             markToday: true,
