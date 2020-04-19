@@ -6,8 +6,9 @@ export default function kamaInput($timeout, toolsService, $rootScope) {
         restrict: "E",
         scope: {
             model: "=model",
-            type: "@type",
-
+			type: "@type",
+			
+			subType: "@?subType",
             disabled: "=?disabled",
             errorMessage: "@?errorMessage",
             identifier: "@?identifier",

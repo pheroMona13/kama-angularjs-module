@@ -10,15 +10,15 @@
     padding-left: 28px;
 }
 
-.kama-input[kama-format-view="date"] {
+.kama-input[kama-format-view="date"], .kama-input[kama-format-view="datestring"] {
     padding-right: 25px;
 }
 
-.kama-input[kama-format-view="date"]:-moz-read-only {
+.kama-input[kama-format-view="date"]:-moz-read-only, .kama-input[kama-format-view="datestring"]:-moz-read-only {
     background-color: #FFF;
 }
 
-.kama-input[kama-format-view="date"]:read-only {
+.kama-input[kama-format-view="date"]:read-only, .kama-input[kama-format-view="datestring"]:read-only {
     background-color: #FFF;
 }
 
