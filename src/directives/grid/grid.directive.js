@@ -217,7 +217,14 @@ export default function kamaGrid(
 				}
 			}
 
-			element.find(".grid-delete-confirmation-modal").modal("show");
+			if (scope.obj.insideModal) {
+				if (confirm(`از حذف ${scope.displayName} اطمینان دارید؟`)) {
+					confirmRemove();
+				}
+			}
+			else {
+				element.find(".grid-delete-confirmation-modal").modal("show");
+			}
 		}
 		function confirmRemove() {
 			loadingService.show();
