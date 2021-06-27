@@ -1,16 +1,17 @@
-﻿kamaPrevent.$inject = ["alertService"];
+﻿kamaPrevent.$inject = ['alertService'];
 export default function kamaPrevent(alertService) {
   let directive = {
-    require: "ngModel",
-    restrict: "A",
-    link: link
+    require: 'ngModel',
+    restrict: 'A',
+    link: link,
   };
 
   return directive;
 
   function link(scope, element, attrs, ngModel) {
-    element.on("keypress", function(event) {
+    element.on('keypress', function (event) {
       let pattern = attrs.kamaPrevent;
+      let message = attrs.kamaMessage;
 
       let input = String.fromCharCode(
         !event.charCode ? event.which : event.charCode
@@ -26,34 +27,40 @@ export default function kamaPrevent(alertService) {
         return;
 
       switch (pattern) {
-        case "number":
+        case 'number':
           if (/[0-9]/.test(input)) {
             event.preventDefault();
-            alertService.error("در این فیلد مجاز به ورود اعداد نیستید", {
-              unique: true
-            });
+            alertService.error(
+              message || 'در این فیلد مجاز به ورود اعداد نیستید',
+              {
+                unique: true,
+              }
+            );
           }
           break;
-        case "letter":
+        case 'letter':
           if (!/[0-9]/.test(input)) {
             event.preventDefault();
-            alertService.error("در این فیلد فقط مجاز به ورود اعداد هستید", {
-              unique: true
-            });
+            alertService.error(
+              message || 'در این فیلد فقط مجاز به ورود اعداد هستید',
+              {
+                unique: true,
+              }
+            );
           }
           break;
-        case "!persian":
+        case '!persian':
           if (!/[\u0600-\u06FF ]/.test(input) || /[،؛؟]/.test(input)) {
             event.preventDefault();
             alertService.error(
-              "در این فیلد فقط مجاز به ورود حروف فارسی هستید",
+              message || 'در این فیلد فقط مجاز به ورود حروف فارسی هستید',
               { unique: true }
             );
           }
           break;
         default:
           if (pattern) {
-            let isNot = pattern[0] === "!" ? true : false;
+            let isNot = pattern[0] === '!' ? true : false;
             let patternRegex = isNot
               ? pattern.substring(1, pattern.length)
               : pattern;
@@ -64,8 +71,8 @@ export default function kamaPrevent(alertService) {
               (isNot && !patternRegex.test(input))
             ) {
               event.preventDefault();
-              alertService.error("کاراکتر وارد شده غیرمجاز است", {
-                unique: true
+              alertService.error(message || 'کاراکتر وارد شده غیرمجاز است', {
+                unique: true,
               });
             }
           }
