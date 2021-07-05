@@ -1,12 +1,12 @@
-﻿kamaAttachment.$inject = ["alertService"];
+﻿kamaAttachment.$inject = ['alertService'];
 export default function kamaAttachment(alertService) {
   let directive = {
     link: link,
-    template: require("./attachment.directive.html"),
-    restrict: "E",
+    template: require('./attachment.directive.html'),
+    restrict: 'E',
     scope: {
-      obj: "=obj"
-    }
+      obj: '=obj',
+    },
   };
 
   return directive;
@@ -20,7 +20,7 @@ export default function kamaAttachment(alertService) {
     scope.openSelected = openSelected;
     scope.upload = upload;
 
-    scope.obj.moduleType = "attachment";
+    scope.obj.moduleType = 'attachment';
     scope.obj.getParams = getParams;
     scope.obj.isFilled = isFilled;
     scope.obj.reset = reset;
@@ -29,46 +29,52 @@ export default function kamaAttachment(alertService) {
     scope.obj.confirmRemove = confirmRemove;
     scope.obj.save = save;
 
+    scope.obj.selectButtonText = scope.obj.selectButtonText || 'انتخاب فایل';
+    scope.obj.uploadButtonText = scope.obj.uploadButtonText || 'بارگذاری';
+    scope.obj.defaultStateHTML =
+      scope.obj.defaultStateHTML ||
+      'هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.';
+
     scope.obj.successUpload = null;
     scope.obj.validTypes = scope.obj.validTypes || [
-      "application/vnd.ms-excel",
-      "application/msexcel",
-      "application/x-msexcel",
-      "application/x-ms-excel",
-      "application/x-excel",
-      "application/x-dos_ms_excel",
-      "application/xls",
-      "application/x-xls",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      "application/pdf",
-      "application/zip",
-      "application/x-zip-compressed",
-      "application/x-7z-compressed",
-      "application/x-rar-compressed",
-      "image/jpeg",
-      "image/x-citrix-jpeg",
-      "image/png",
-      "image/x-citrix-png",
-      "image/x-png",
-      "image/tiff",
-      "image/gif",
-      "image/bmp",
-      "image/svg+xml"
+      'application/vnd.ms-excel',
+      'application/msexcel',
+      'application/x-msexcel',
+      'application/x-ms-excel',
+      'application/x-excel',
+      'application/x-dos_ms_excel',
+      'application/xls',
+      'application/x-xls',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/pdf',
+      'application/zip',
+      'application/x-zip-compressed',
+      'application/x-7z-compressed',
+      'application/x-rar-compressed',
+      'image/jpeg',
+      'image/x-citrix-jpeg',
+      'image/png',
+      'image/x-citrix-png',
+      'image/x-png',
+      'image/tiff',
+      'image/gif',
+      'image/bmp',
+      'image/svg+xml',
     ];
     if (scope.obj.readOnly === true || scope.obj.readOnly === false)
-      scope.obj.readOnly = function() {
+      scope.obj.readOnly = function () {
         return scope.obj.readOnly;
       };
     else
       scope.obj.readOnly =
         scope.obj.readOnly ||
-        function() {
+        function () {
           return false;
         };
 
-    element.find("input[type='file']").bind("change", selectFile);
+    element.find("input[type='file']").bind('change', selectFile);
 
     function selectFile() {
       file = element.find("input[type='file']").get(0).files[0];
@@ -77,13 +83,13 @@ export default function kamaAttachment(alertService) {
       scope.$apply();
     }
     function browse() {
-      element.find("input[type='file']").trigger("click");
+      element.find("input[type='file']").trigger('click');
     }
     function openSelected(event) {
       let blob = new Blob([file]);
       let url = URL.createObjectURL(blob);
-      event.currentTarget.setAttribute("download", file.name);
-      event.currentTarget.setAttribute("href", url);
+      event.currentTarget.setAttribute('download', file.name);
+      event.currentTarget.setAttribute('href', url);
     }
     function upload() {
       // change this function so it return a promise
@@ -91,11 +97,11 @@ export default function kamaAttachment(alertService) {
         scope.obj.validTypes.length &&
         scope.obj.validTypes.indexOf(file.type) === -1
       )
-        return alertService.error("قالب فایل انتخاب شده مجاز نیست");
+        return alertService.error('قالب فایل انتخاب شده مجاز نیست');
 
       // check maximum file size
       if (scope.obj.maxFileSize && file && file.size > scope.obj.maxFileSize)
-        return alertService.error("سایز فایل انتخاب شده بزرگتر از حد مجاز است");
+        return alertService.error('سایز فایل انتخاب شده بزرگتر از حد مجاز است');
 
       if (window.FormData !== undefined) {
         let fileData = new FormData();
@@ -104,10 +110,10 @@ export default function kamaAttachment(alertService) {
 
         scope.obj
           .uploadService(fileData)
-          .then(result => {
+          .then((result) => {
             scope.uploading = false; //**state
             if (result) tempFileName = result;
-            else return $q.reject("خطا در بارگذاری فایل");
+            else return $q.reject('خطا در بارگذاری فایل');
           })
           .then(() => {
             if (scope.obj.autoSave)
@@ -117,14 +123,14 @@ export default function kamaAttachment(alertService) {
                   create separate states?
                 */
                 // scope.obj.successUpload = true;
-                alertService.success("فایل با موفقیت آپلود و ذخیره شد");
+                alertService.success('فایل با موفقیت آپلود و ذخیره شد');
               });
             else {
               scope.obj.successUpload = true;
-              alertService.success("فایل با موفقیت آپلود شد");
+              alertService.success('فایل با موفقیت آپلود شد');
             }
           })
-          .catch(error => {
+          .catch((error) => {
             scope.uploading = false; //**state
             alertService.error(error);
           });
@@ -159,14 +165,14 @@ export default function kamaAttachment(alertService) {
     }
     function remove() {
       if (!scope.obj.insideModal)
-        element.find(".delete-attachment-confirmation-modal").modal("show");
-      else if (confirm("از حذف فایل اطمینان دارید؟")) confirmRemove();
+        element.find('.delete-attachment-confirmation-modal').modal('show');
+      else if (confirm('از حذف فایل اطمینان دارید؟')) confirmRemove();
     }
     function confirmRemove() {
       return scope.obj.deleteService(scope.obj.bindingObject).then(reset);
     }
     function save() {
-      return scope.obj.saveService(getParams()).then(result => {
+      return scope.obj.saveService(getParams()).then((result) => {
         scope.obj.bindingObject = result;
       });
     }

@@ -1,46 +1,55 @@
 <div class="kama-attachment">
-    <input type="file" style="display: none" />
-    
-    <button type="button" class="btn btn-primary" ng-click="browse()" ng-if="!obj.readOnly() && !obj.bindingObject.ID"><span class="glyphicon glyphicon-folder-open"></span>انتخاب فایل</button>
-    <button type="button" class="btn btn-success" ng-click="upload()" ng-if="!obj.readOnly() && !obj.bindingObject.ID" ng-disabled="!fileSelected || uploading"><span class="glyphicon glyphicon-cloud-upload"></span>بارگذاری</button>
-    
-    <span class="attachment-state" ng-if="!obj.readOnly() && !obj.bindingObject.FileName && !fileSelected">
-        هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.
-        <span ng-if="obj.maxFileSize">حداکثر سایز فایل مجاز: {{obj.maxFileSize / 1024 / 1024}} مگابایت</span>
-    </span>
-    <span class="attachment-state" ng-if="obj.readOnly() && !obj.bindingObject.ID">فایلی بارگذاری نشده است.</span>
+	<input type="file" style="display: none" />
 
-    <a class="attachment-download" ng-click="openSelected($event)" ng-show="fileSelected" download="">[نمایش]</a>
-    <span class="attachment-state" ng-show="fileSelected">
-        <i class="fa fa-hourglass-end" aria-hidden="true" ng-show="uploading" title="درحال بارگذاری فایل، منتظر باشید..."></i>
-        <i class="fa fa-check" aria-hidden="true" ng-show="obj.successUpload" title="فایل با موفقیت بارگذاری شد"></i>
-        {{obj.fileName}}
-        <i class="fa fa-close" aria-hidden="true" ng-show="fileSelected" ng-click="obj.reset()" title="خالی کردن"></i>
-    </span>
+	<button type="button" class="btn btn-primary" ng-click="browse()" ng-if="!obj.readOnly() && !obj.bindingObject.ID">
+		<span class="glyphicon glyphicon-folder-open"></span>{{obj.selectButtonText}}
+	</button>
+	<button type="button" class="btn btn-success" ng-click="upload()" ng-if="!obj.readOnly() && !obj.bindingObject.ID"
+		ng-disabled="!fileSelected || uploading">
+		<span class="glyphicon glyphicon-cloud-upload"></span>بارگذاری
+	</button>
 
-    <span ng-show="!fileSelected && obj.bindingObject.ID">
-        <span class="attachment-link download" ng-click="obj.download()">[دانلود]</span>
-        <span class="attachment-link remove" ng-click="obj.remove()" ng-if="!obj.readOnly()">[حذف فایل]</span>
-        <span class="attachment-state">{{obj.bindingObject.FileName}}</span>
-    </span>
+	<span class="attachment-state" ng-if="!obj.readOnly() && !obj.bindingObject.FileName && !fileSelected">
+		<span ng-bind-html="obj.defaultStateHTML | trustAsHtml"></span>
+		<span ng-if="obj.maxFileSize">حداکثر سایز فایل مجاز: {{obj.maxFileSize / 1024 / 1024}} مگابایت</span>
+	</span>
+	<span class="attachment-state" ng-if="obj.readOnly() && !obj.bindingObject.ID">فایلی بارگذاری نشده است.</span>
 
-    <p ng-if="obj.description && obj.bindingObject && obj.description(obj.bindingObject)">{{obj.description(obj.bindingObject)}}</p>
+	<a class="attachment-download" ng-click="openSelected($event)" ng-show="fileSelected" download="">[نمایش]</a>
+	<span class="attachment-state" ng-show="fileSelected">
+		<i class="fa fa-hourglass-end" aria-hidden="true" ng-show="uploading"
+			title="درحال بارگذاری فایل، منتظر باشید..."></i>
+		<i class="fa fa-check" aria-hidden="true" ng-show="obj.successUpload" title="فایل با موفقیت بارگذاری شد"></i>
+		{{obj.fileName}}
+		<i class="fa fa-close" aria-hidden="true" ng-show="fileSelected" ng-click="obj.reset()" title="خالی کردن"></i>
+	</span>
+
+	<span ng-show="!fileSelected && obj.bindingObject.ID">
+		<span class="attachment-link download" ng-click="obj.download()">[دانلود]</span>
+		<span class="attachment-link remove" ng-click="obj.remove()" ng-if="!obj.readOnly()">[حذف فایل]</span>
+		<span class="attachment-state">{{obj.bindingObject.FileName}}</span>
+	</span>
+
+	<p ng-if="obj.description && obj.bindingObject && obj.description(obj.bindingObject)">
+		{{obj.description(obj.bindingObject)}}</p>
 </div>
 
-<div class="modal fade delete-attachment-confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="deleteAttachmentConfirmationLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="deleteAttachmentConfirmationLabel">تایید حذف</h4>
-            </div>
-            <div class="modal-body">
-                <p>از حذف فایل اطمینان دارید؟</p>
-            </div>
-            <div class="modal-footer btn-container">
-                <button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal" ng-click="obj.confirmRemove()">بله</button>
-                <button type="button" class="btn btn-default btn-min-width" data-dismiss="modal">خیر</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade delete-attachment-confirmation-modal" tabindex="-1" role="dialog"
+	aria-labelledby="deleteAttachmentConfirmationLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="deleteAttachmentConfirmationLabel">تایید حذف</h4>
+			</div>
+			<div class="modal-body">
+				<p>از حذف فایل اطمینان دارید؟</p>
+			</div>
+			<div class="modal-footer btn-container">
+				<button type="button" class="btn btn-danger btn-min-width" data-dismiss="modal"
+					ng-click="obj.confirmRemove()">بله</button>
+				<button type="button" class="btn btn-default btn-min-width" data-dismiss="modal">خیر</button>
+			</div>
+		</div>
+	</div>
 </div>
