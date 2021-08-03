@@ -1,32 +1,32 @@
-﻿authInterceptorService.$inject = ["$q", "$timeout", "globalService"];
+﻿authInterceptorService.$inject = ['$q', '$timeout', 'globalService'];
 export default function authInterceptorService($q, $timeout, globalService) {
   const service = {
     request: request,
-    responseError: responseError
+    responseError: responseError,
   };
 
   return service;
 
   function request(config) {
-    let authorizationData = globalService.get("authorizationData");
+    let authorizationData = globalService.get('authorizationData');
     config.headers = config.headers || {};
 
-    config.headers["__antiForgeryFormToken"] = angular
+    config.headers['__antiForgeryFormToken'] = angular
       .element('input[name="__antiForgeryFormToken"]')
-      .attr("value");
+      .attr('value');
 
     if (authorizationData && authorizationData.access_token)
-      config.headers.Authorization = "Bearer " + authorizationData.access_token;
+      config.headers.Authorization = 'Bearer ' + authorizationData.access_token;
 
     return config;
   }
   function responseError(rejection) {
-    if (rejection.status === 401) {
-      document.body.innerHTML = '';
-      $timeout(() => {
-        window.location.reload();
-      }, 2000);
-    }
+    // if (rejection.status === 401) {
+    //   document.body.innerHTML = '';
+    //   $timeout(() => {
+    //     window.location.reload();
+    //   }, 2000);
+    // }
 
     return $q.reject(rejection);
   }
