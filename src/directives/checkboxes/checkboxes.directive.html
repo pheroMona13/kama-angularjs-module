@@ -1,102 +1,72 @@
 ﻿<div class="row kama-checkboxes">
-  <!-- display tree -->
-  <div class="col-xs-12" ng-if="display === 'tree'">
-    <ul>
-      <li ng-repeat="checkbox in list" ng-include="'checkbox-tree.html'"></li>
-    </ul>
-  </div>
+	<!-- search -->
+	<div class="form-group col-xs-12" ng-if="search && display === 'column'">
+		<label>جستجو</label>
+		<input type="text" class="form-control" ng-model="searchObject[displayName]" />
+	</div>
 
-  <!-- display column -->
-  <div class="form-group col-xs-12" ng-if="search && display === 'column'">
-    <label>جستجو</label>
-    <input
-      type="text"
-      class="form-control"
-      ng-model="searchObject[displayName]"
-    />
-  </div>
-  <div
-    class="col-xs-12 col-sm-6 col-md-4"
-    ng-if="display === 'column'"
-    ng-repeat="checkbox in list | filter: searchObject"
-  >
-    <label class="checkbox-label">
-      <input
-        type="checkbox"
-        ng-click="updateSelection($event, checkbox)"
-        ng-checked="isSelected(checkbox)"
-      />
-      <span>{{ checkbox[displayName] }}</span>
-    </label>
-  </div>
+	<!-- select all -->
+	<ng-include src="'checkbox-select-all.html'" ng-if="display !== 'table'"></ng-include>
 
-  <!-- display table -->
-  <div class="col-xs-12" ng-if="display === 'table'">
-    <table class="table table-bordered table-condensed">
-      <thead>
-        <tr ng-if="!hideHeader">
-          <th>
-            <span
-              ng-repeat="column in columns track by $index"
-              ng-if="column.name === displayName"
-              >{{ column.title }}</span
-            >
-          </th>
-          <th
-            ng-repeat="column in columns track by $index"
-            ng-if="column.name !== displayName"
-          >
-            {{ column.title }}
-          </th>
-        </tr>
-        <tr ng-if="!hideSelectAll">
-          <th colspan="{{ columns.length }}">
-            <button
-              type="button"
-              class="btn btn-xs btn-default"
-              ng-click="selectAllFiltered(filteredList)"
-            >
-              انتخاب همه<span ng-if="searchObject[displayName]"
-                >‌ی فیلترشده‌ها <span>({{ filteredList.length }})</span></span
-              >
-            </button>
-          </th>
-        </tr>
-        <tr ng-if="!hideSearch">
-          <th colspan="{{ columns.length }}">
-            <input
-              type="text"
-              placeholder="جستجو"
-              class="form-control"
-              ng-model="searchObject[displayName]"
-            />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          ng-repeat="checkbox in filteredList = (list | filter: searchObject)"
-        >
-          <td>
-            <label class="checkbox-label">
-              <input
-                type="checkbox"
-                ng-click="updateSelection($event, checkbox)"
-                ng-checked="isSelected(checkbox)"
-              />
-              <span>{{ checkbox[displayName] }}</span>
-            </label>
-          </td>
-          <td
-            ng-repeat="column in columns track by $index"
-            ng-if="column.name !== displayName"
-          >
-            {{ checkbox[column.name] }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+	<!-- display column -->
+	<div class="col-xs-12 col-sm-6 col-md-4" ng-if="display === 'column'"
+		ng-repeat="checkbox in list | filter: searchObject">
+		<label class="checkbox-label">
+			<input type="checkbox" ng-click="updateSelection($event, checkbox)" ng-checked="isSelected(checkbox)" />
+			<span>{{ checkbox[displayName] }}</span>
+		</label>
+	</div>
+
+	<!-- display tree -->
+	<div class="col-xs-12 kama-checkboxes-tree" ng-if="display === 'tree'">
+		<ul>
+			<li ng-repeat="checkbox in list" ng-include="'checkbox-tree.html'"></li>
+		</ul>
+	</div>
+
+	<!-- display table -->
+	<div class="col-xs-12" ng-if="display === 'table'">
+		<table class="table table-bordered table-condensed">
+			<thead>
+				<tr ng-if="!hideHeader">
+					<th>
+						<span ng-repeat="column in columns track by $index" ng-if="column.name === displayName">{{
+							column.title }}</span>
+					</th>
+					<th ng-repeat="column in columns track by $index" ng-if="column.name !== displayName">
+						{{ column.title }}
+					</th>
+				</tr>
+				<tr ng-if="display === 'table'">
+					<th colspan="{{ columns.length }}">
+						<div class="row">
+							<ng-include src="'checkbox-select-all.html'"></ng-include>
+						</div>
+					</th>
+				</tr>
+				<tr ng-if="!hideSearch">
+					<th colspan="{{ columns.length }}">
+						<input type="text" placeholder="جستجو" class="form-control"
+							ng-model="searchObject[displayName]" />
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="checkbox in filteredList = (list | filter: searchObject)">
+					<td>
+						<label class="checkbox-label">
+							<input type="checkbox" ng-click="updateSelection($event, checkbox)"
+								ng-checked="isSelected(checkbox)" />
+							<span>{{ checkbox[displayName] }}</span>
+						</label>
+					</td>
+					<td ng-repeat="column in columns track by $index" ng-if="column.name !== displayName">
+						{{ checkbox[column.name] }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script type="text/ng-template" id="checkbox-tree.html">
@@ -110,4 +80,13 @@
       <li ng-repeat="checkbox in checkbox.children"
           ng-include="'checkbox-tree.html'"></li>
   </ul>
+</script>
+
+<script type="text/ng-template" id="checkbox-select-all.html">
+	<div class="col-xs-12" ng-if="selectAll">
+		<label class="checkbox-label">
+			<input type="checkbox" ng-click="toggleAll($event)" />
+			<span>انتخاب همه</span>
+		</label>
+	</div>
 </script>

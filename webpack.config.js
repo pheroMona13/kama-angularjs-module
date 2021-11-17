@@ -1,19 +1,19 @@
-const path = require("path"),
-  glob = require("glob"),
-  webpack = require("webpack"),
-  package = require("./package.json"),
-  UglifyJSPlugin = require("uglifyjs-webpack-plugin"),
-  ExtractTextPlugin = require("extract-text-webpack-plugin"),
-  extractSass = new ExtractTextPlugin({ filename: "kama-angularjs.min.css" }),
-  buildMode = "prod"; // 'dev' or 'prod'
+const path = require('path'),
+  glob = require('glob'),
+  webpack = require('webpack'),
+  package = require('./package.json'),
+  UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
+  ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  extractSass = new ExtractTextPlugin({ filename: 'kama-angularjs.min.css' }),
+  buildMode = 'prod'; // 'dev' or 'prod'
 
 module.exports = {
   entry: {
-    "kama-angularjs": "./src/kama-angularjs.module.js"
+    'kama-angularjs': './src/kama-angularjs.module.js',
   },
   output: {
-    filename: "[name].min.js",
-    path: path.resolve(__dirname, "dist")
+    filename: '[name].min.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   plugins: getPlugins(),
   module: {
@@ -22,33 +22,33 @@ module.exports = {
         test: /\.scss$/,
         use: extractSass.extract({
           use: [
-            { loader: "css-loader", options: { minimize: true } },
-            { loader: "sass-loader" }
+            { loader: 'css-loader', options: { minimize: true } },
+            { loader: 'sass-loader' },
           ],
-          fallback: "style-loader"
-        })
+          fallback: 'style-loader',
+        }),
       },
       {
         test: /\.js$/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           query: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader",
-            options: buildMode === "prod" ? { minimize: true } : {}
-          }
-        ]
-      }
+            loader: 'html-loader',
+            options: buildMode === 'prod' ? { minimize: true } : {},
+          },
+        ],
+      },
     ],
-    loaders: [{ test: /\.(png|eot|woff|ttf)$/, loader: "file-loader" }]
-  }
+    loaders: [{ test: /\.(png|eot|woff|ttf)$/, loader: 'file-loader' }],
+  },
 };
 
 function getPlugins() {
@@ -56,7 +56,7 @@ function getPlugins() {
 
   plugins.push(extractSass);
 
-  if (buildMode == "prod") {
+  if (buildMode == 'prod') {
     plugins.push(new UglifyJSPlugin());
     plugins.push(
       new webpack.BannerPlugin(`${package.name} - version ${package.version}`)

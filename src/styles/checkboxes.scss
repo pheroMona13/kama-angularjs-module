@@ -1,3 +1,13 @@
-.kama-checkboxes ul {
-  list-style: none;
+.kama-checkboxes {
+  ul {
+    list-style: none;
+  }
+
+  .kama-checkboxes-tree > ul {
+    padding: 0;
+  }
+
+  .checkbox-label {
+    cursor: pointer;
+  }
 }
