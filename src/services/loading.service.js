@@ -1,13 +1,13 @@
 ﻿export default function loadingService() {
-    let service = {
-        show: show
-        , hide: hide
-    };
+  let service = {
+    show: show,
+    hide: hide,
+  };
 
-    // create loading view
-    let loadingContainer = document.createElement('div')
-        , loadingView = `
-        <div id="loading-service" style="display: none">
+  // create loading view
+  let loadingContainer = document.createElement('div'),
+    loadingView = `
+        <div id="loading-service">
             <div class="showbox">
                 <div class="loader">
                     <svg class="circular" viewBox="25 25 50 50">
@@ -16,21 +16,21 @@
                 </div>
             </div>
         </div>`;
-    loadingContainer.innerHTML = loadingView;
-    document.body.appendChild(loadingContainer);
+  loadingContainer.innerHTML = loadingView;
+  document.body.appendChild(loadingContainer);
 
-    return service;
-    
-    function show() {
-        $('#loading-service').show();
-    }
-    function hide(timeout) {
-        if (timeout === undefined)
-            timeout = 200;
+  return service;
 
-        if (timeout)
-            setTimeout(function () { $('#loading-service').hide() }, timeout);
-        else
-            $('#loading-service').hide();
-    }
+  function show() {
+    $('#loading-service').show();
+  }
+  function hide(timeout) {
+    if (timeout === undefined) timeout = 200;
+
+    if (timeout)
+      setTimeout(function () {
+        $('#loading-service').hide();
+      }, timeout);
+    else $('#loading-service').hide();
+  }
 }

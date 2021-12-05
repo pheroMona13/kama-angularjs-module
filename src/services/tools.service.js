@@ -9,7 +9,7 @@
 // - standardizedEnum => arrayEnum
 // - isValidJalali => validate.jalali
 
-toolsService.$inject = ["$rootScope", "$location"];
+toolsService.$inject = ['$rootScope', '$location'];
 export default function toolsService($rootScope, $location) {
   let service = {
     checkPasswordPolicy: checkPasswordPolicy,
@@ -20,7 +20,7 @@ export default function toolsService($rootScope, $location) {
       phoneNumber: validatePhoneNumber,
       jalali: validateJalali,
       guid: validateGuid,
-      year: validateYear
+      year: validateYear,
     },
     extend: extend,
     arrayEnum: arrayEnum,
@@ -37,7 +37,7 @@ export default function toolsService($rootScope, $location) {
     timeToMinutes: timeToMinutes,
     minutesToTime: minutesToTime,
     print: print,
-    checkPermission: checkPermission
+    checkPermission: checkPermission,
   };
 
   return service;
@@ -63,7 +63,7 @@ export default function toolsService($rootScope, $location) {
       check = parseInt(nationalCode[9]);
       sum =
         [0, 1, 2, 3, 4, 5, 6, 7, 8]
-          .map(x => {
+          .map((x) => {
             return parseInt(nationalCode[x]) * (10 - x);
           })
           .reduce((x, y) => {
@@ -107,70 +107,70 @@ export default function toolsService($rootScope, $location) {
      *
      * @type {string}
      */
-    let spliter = " و ";
+    let spliter = ' و ';
 
     /**
      *
      * @type {string}
      */
-    let zero = "صفر";
+    let zero = 'صفر';
 
     /**
      *
      * @type {*[]}
      */
     let Letters = [
-      ["", "یك", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"],
+      ['', 'یك', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'],
       [
-        "ده",
-        "یازده",
-        "دوازده",
-        "سیزده",
-        "چهارده",
-        "پانزده",
-        "شانزده",
-        "هفده",
-        "هجده",
-        "نوزده",
-        "بیست"
+        'ده',
+        'یازده',
+        'دوازده',
+        'سیزده',
+        'چهارده',
+        'پانزده',
+        'شانزده',
+        'هفده',
+        'هجده',
+        'نوزده',
+        'بیست',
       ],
-      ["", "", "بیست", "سی", "چهل", "پنجاه", "شصت", "هفتاد", "هشتاد", "نود"],
+      ['', '', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'],
       [
-        "",
-        "یكصد",
-        "دویست",
-        "سیصد",
-        "چهارصد",
-        "پانصد",
-        "ششصد",
-        "هفتصد",
-        "هشتصد",
-        "نهصد"
+        '',
+        'یكصد',
+        'دویست',
+        'سیصد',
+        'چهارصد',
+        'پانصد',
+        'ششصد',
+        'هفتصد',
+        'هشتصد',
+        'نهصد',
       ],
       [
-        "",
-        " هزار ",
-        " میلیون ",
-        " میلیارد ",
-        " هزار میلیارد ",
-        " میلیون میلیارد ",
-        " میلیارد میلیارد ",
-        " تریلیارد ",
-        " کوآدریلیون ",
-        " کادریلیارد ",
-        " کوینتیلیون ",
-        " کوانتینیارد ",
-        " سکستیلیون ",
-        " سکستیلیارد ",
-        " سپتیلیون ",
-        " سپتیلیارد ",
-        " اکتیلیون ",
-        " اکتیلیارد ",
-        " نانیلیون ",
-        " نانیلیارد ",
-        " دسیلیون ",
-        " دسیلیارد "
-      ]
+        '',
+        ' هزار ',
+        ' میلیون ',
+        ' میلیارد ',
+        ' هزار میلیارد ',
+        ' میلیون میلیارد ',
+        ' میلیارد میلیارد ',
+        ' تریلیارد ',
+        ' کوآدریلیون ',
+        ' کادریلیارد ',
+        ' کوینتیلیون ',
+        ' کوانتینیارد ',
+        ' سکستیلیون ',
+        ' سکستیلیارد ',
+        ' سپتیلیون ',
+        ' سپتیلیارد ',
+        ' اکتیلیون ',
+        ' اکتیلیارد ',
+        ' نانیلیون ',
+        ' نانیلیارد ',
+        ' دسیلیون ',
+        ' دسیلیارد ',
+      ],
     ];
 
     return convert(num);
@@ -180,17 +180,17 @@ export default function toolsService($rootScope, $location) {
      * @param {*} num
      */
     function PrepareNumber(num) {
-      if (typeof num === "number") {
+      if (typeof num === 'number') {
         num = num.toString();
       }
       let NumberLength = num.length % 3;
       if (NumberLength === 1) {
-        num = "00" + num;
+        num = '00' + num;
       } else if (NumberLength === 2) {
-        num = "0" + num;
+        num = '0' + num;
       }
       //Explode to array
-      return num.replace(/\d{3}(?=\d)/g, "$&*").split("*");
+      return num.replace(/\d{3}(?=\d)/g, '$&*').split('*');
     }
 
     /**
@@ -200,7 +200,7 @@ export default function toolsService($rootScope, $location) {
     function ThreeNumbersToLetter(num) {
       //return zero
       if (parseInt(num) === 0) {
-        return "";
+        return '';
       }
       let parsedInt = parseInt(num);
       if (parsedInt < 10) {
@@ -249,7 +249,7 @@ export default function toolsService($rootScope, $location) {
           return zero;
         }
         if (num.length > 66) {
-          return "خارج از محدوده";
+          return 'خارج از محدوده';
         }
         //Split to sections
         let SplitedNumber = PrepareNumber(num);
@@ -260,16 +260,16 @@ export default function toolsService($rootScope, $location) {
         for (let i = 0; i < SplitLength; i++) {
           let SectionTitle = Letters[4][SplitLength - (i + 1)];
           let converted = ThreeNumbersToLetter(SplitedNumber[i]);
-          if (converted !== "") {
+          if (converted !== '') {
             funcout.push(converted + SectionTitle);
           }
         }
         return funcout.join(spliter);
-      } else return "";
+      } else return '';
     }
   }
   function validateLegalNationalCode(code) {
-    code = code + "";
+    code = code + '';
     let c = parseInt(code.substr(10, 1), 10),
       d = parseInt(code.substr(9, 1), 10) + 2,
       z = new Array(29, 27, 23, 19, 17),
@@ -289,13 +289,14 @@ export default function toolsService($rootScope, $location) {
     return c == s;
   }
   function validateEmail(email) {
-    if (email && email.indexOf("www.") === 0) return false;
+    if (email && email.indexOf('www.') === 0) return false;
 
-    let re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    let re =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return re.test(String(email).toLowerCase());
   }
   function validatePhoneNumber(number) {
-    if (!number || (number && (number.length !== 11 || number[0] !== "0")))
+    if (!number || (number && (number.length !== 11 || number[0] !== '0')))
       return false;
     else return true;
   }
@@ -321,7 +322,7 @@ export default function toolsService($rootScope, $location) {
       length = arguments.length;
 
     // Check if a deep merge
-    if (Object.prototype.toString.call(arguments[0]) === "[object Boolean]") {
+    if (Object.prototype.toString.call(arguments[0]) === '[object Boolean]') {
       deep = arguments[0];
       i++;
     }
@@ -341,7 +342,7 @@ export default function toolsService($rootScope, $location) {
           // If deep merge and property is an object, merge properties
           if (
             deep &&
-            Object.prototype.toString.call(obj[prop]) === "[object Object]"
+            Object.prototype.toString.call(obj[prop]) === '[object Object]'
           )
             extended[prop] = extend(true, extended[prop], obj[prop]);
           else extended[prop] = obj[prop];
@@ -359,22 +360,22 @@ export default function toolsService($rootScope, $location) {
     return result;
   }
   function convertFarsiNumbers(input) {
-    if (Object.prototype.toString.call(input) === "[object Array]") {
+    if (Object.prototype.toString.call(input) === '[object Array]') {
       for (let i = 0; i < input.length; i++) {
         input[i] = convertFarsiNumbers(input[i]);
       }
-    } else if (Object.prototype.toString.call(input) === "[object Object]") {
+    } else if (Object.prototype.toString.call(input) === '[object Object]') {
       for (let key in input) {
         if (input.hasOwnProperty(key))
           input[key] = convertFarsiNumbers(input[key]);
       }
-    } else if (Object.prototype.toString.call(input) === "[object String]") {
+    } else if (Object.prototype.toString.call(input) === '[object String]') {
       input = String(
         input
-          .replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(d) {
+          .replace(/[٠١٢٣٤٥٦٧٨٩]/g, function (d) {
             return d.charCodeAt(0) - 1632;
           })
-          .replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function(d) {
+          .replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function (d) {
             return d.charCodeAt(0) - 1776;
           })
       );
@@ -414,14 +415,14 @@ export default function toolsService($rootScope, $location) {
   }
   function randomString(length) {
     let chars = [],
-      template = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      template = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     length = length || 10;
     for (let i = 0; i < length; i++) {
       chars.push(template.charAt(Math.floor(Math.random() * template.length)));
     }
 
-    return chars.join("");
+    return chars.join('');
   }
   function getTreeObject(data, primaryIdName, parentIdName, defaultRoot) {
     if (!data || data.length == 0 || !primaryIdName || !parentIdName) return [];
@@ -475,27 +476,27 @@ export default function toolsService($rootScope, $location) {
   function print(elementId) {
     let toPrint = document.getElementById(elementId);
     let popupWin = window.open(
-      "",
-      "_blank",
-      "width=1000,height=800,location=no,left=200px"
+      '',
+      '_blank',
+      'width=1000,height=800,location=no,left=200px'
     );
     popupWin.document.open();
     popupWin.document.write(
-      '<html><title></title><style></style></head><body onload="window.print()">'
+      '<html><title></title></head><body onload="window.print()">'
     );
     popupWin.document.write(toPrint.innerHTML);
-    popupWin.document.write("</html>");
+    popupWin.document.write('</html>');
     popupWin.document.close();
   }
   function dateToJalali(date) {
-    if (date && date instanceof Date && typeof date.getMonth === "function") {
+    if (date && date instanceof Date && typeof date.getMonth === 'function') {
       return convertToJalali(date);
-    } else if (date && typeof date === "string") {
+    } else if (date && typeof date === 'string') {
       let dateObject = new Date(date);
       if (dateObject instanceof Date && !isNaN(dateObject))
         return convertToJalali(dateObject);
-      else return "";
-    } else return "";
+      else return '';
+    } else return '';
 
     function convertToJalali(date) {
       let jalali = gregorianToJalali(
@@ -505,20 +506,20 @@ export default function toolsService($rootScope, $location) {
       );
 
       return (
-        jalali[0] + "/" + doubleDigit(jalali[1]) + "/" + doubleDigit(jalali[2])
+        jalali[0] + '/' + doubleDigit(jalali[1]) + '/' + doubleDigit(jalali[2])
       );
     }
     function doubleDigit(digit) {
       digit = digit.toString();
 
-      if (digit.length < 2 && digit < 10) return "0" + digit;
+      if (digit.length < 2 && digit < 10) return '0' + digit;
       else return digit;
     }
   }
   function jalaliToDate(jalali) {
     let date;
 
-    jalali = jalali.split("/");
+    jalali = jalali.split('/');
     date = toGregorian(
       parseInt(jalali[0]),
       parseInt(jalali[1]),
@@ -530,19 +531,19 @@ export default function toolsService($rootScope, $location) {
   function validateJalali(jalali) {
     // accepted format: yyyy/mm/dd
     if (jalali && jalali.length == 10) {
-      jalali = jalali.split("/");
+      jalali = jalali.split('/');
       if (jalali.length == 3) {
         if (
           jalali[0].length == 4 &&
           !isNaN(parseInt(jalali[0], 10)) &&
-          (jalali[1].length == 2 &&
-            !isNaN(parseInt(jalali[1], 10)) &&
-            parseInt(jalali[1], 10) > 0 &&
-            parseInt(jalali[1], 10) < 13) &&
-          (jalali[2].length == 2 &&
-            !isNaN(parseInt(jalali[2], 10)) &&
-            parseInt(jalali[1], 10) > 0 &&
-            parseInt(jalali[1], 10) < 32)
+          jalali[1].length == 2 &&
+          !isNaN(parseInt(jalali[1], 10)) &&
+          parseInt(jalali[1], 10) > 0 &&
+          parseInt(jalali[1], 10) < 13 &&
+          jalali[2].length == 2 &&
+          !isNaN(parseInt(jalali[2], 10)) &&
+          parseInt(jalali[1], 10) > 0 &&
+          parseInt(jalali[1], 10) < 32
         )
           return true;
       }
@@ -556,8 +557,8 @@ export default function toolsService($rootScope, $location) {
   function timeToMinutes(time) {
     if (time) {
       var hour, minutes;
-      hour = parseInt(time.split(":")[0]);
-      minutes = parseInt(time.split(":")[1]);
+      hour = parseInt(time.split(':')[0]);
+      minutes = parseInt(time.split(':')[1]);
       minutes += hour * 60;
       return minutes;
     } else {
@@ -565,35 +566,35 @@ export default function toolsService($rootScope, $location) {
     }
   }
   function minutesToTime(minutes) {
-    if (!minutes) return "";
+    if (!minutes) return '';
 
     var h, m;
     h = Math.floor(minutes / 60);
     m = Math.round(minutes % 60);
     if (h < 10) {
-      h = "0" + h;
+      h = '0' + h;
     } else {
-      h = h + "";
+      h = h + '';
     }
     if (m < 10) {
-      m = "0" + m;
+      m = '0' + m;
     } else {
-      m = m + "";
+      m = m + '';
     }
-    return h + ":" + m;
+    return h + ':' + m;
   }
   function checkPermission(input, options) {
     let isAuthorized;
 
     options = options || {};
 
-    if (typeof input === "string")
+    if (typeof input === 'string')
       isAuthorized =
         $rootScope.permissions &&
-        $rootScope.permissions.some(e => {
+        $rootScope.permissions.some((e) => {
           return e.Name === input;
         });
-    else if (Object.prototype.toString.call(input) === "[object Array]") {
+    else if (Object.prototype.toString.call(input) === '[object Array]') {
       for (let i = 0; i < $rootScope.permissions.length; i++) {
         const permission = $rootScope.permissions[i];
 
@@ -610,7 +611,7 @@ export default function toolsService($rootScope, $location) {
       }
     }
 
-    if (!isAuthorized && options.notFound) $location.path("not-found");
+    if (!isAuthorized && options.notFound) $location.path('not-found');
 
     return isAuthorized;
   }
@@ -676,32 +677,14 @@ export default function toolsService($rootScope, $location) {
       o,
       v,
       e = [
-        -61,
-        9,
-        38,
-        199,
-        426,
-        686,
-        756,
-        818,
-        1111,
-        1181,
-        1210,
-        1635,
-        2060,
-        2097,
-        2192,
-        2262,
-        2324,
-        2394,
-        2456,
-        3178
+        -61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097,
+        2192, 2262, 2324, 2394, 2456, 3178,
       ],
       l = e.length,
       u = d + 621,
       m = -14,
       g = e[0];
-    if (g > d || d >= e[l - 1]) throw new Error("Invalid Jalaali year " + d);
+    if (g > d || d >= e[l - 1]) throw new Error('Invalid Jalaali year ' + d);
     for (v = 1; l > v && ((i = e[v]), (a = i - g), !(i > d)); v += 1)
       (m = m + 8 * div(a, 33) + div(mod(a, 33), 4)), (g = i);
     return (

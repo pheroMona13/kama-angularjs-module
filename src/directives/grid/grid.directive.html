@@ -1,6 +1,6 @@
 <div class="kama-grid-top" ng-if="!obj.hideHeader && obj.checkHeaderVisibility() && !obj.readOnly()">
-	<a href="" class="btn btn-link" style="text-decoration: none; color: #e0e3e6" ng-click="obj.add()">
-		<i class="fa fa-plus" aria-hidden="true" style="position: relative; top: 2px;"></i>
+	<a href="" class="btn btn-link" ng-click="obj.add()">
+		<i class="fa fa-plus" aria-hidden="true"></i>
 		افزودن</a>
 </div>
 <div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.readOnly() || obj.actions.length * 35}"
@@ -8,7 +8,7 @@
 	<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th style="width: 70px">ردیف</th>
+				<th>ردیف</th>
 				<th ng-repeat="column in obj.columns" st-sort="column.name">
 					{{ column.displayName }}
 				</th>
@@ -32,8 +32,8 @@
 				<td ng-repeat="column in obj.columns">
 					<span ng-if="!column.subItem" ng-click="column.onclick(item)">
 						<span ng-class="{'link': !!column.onclick}">{{
-              cellValue(item, column)
-            }}</span>
+							cellValue(item, column)
+							}}</span>
 					</span>
 
 					<span ng-if="column.subItem">
@@ -41,8 +41,8 @@
 							<span ng-if="subItem[column.subItemKey] == column.subItemValue"
 								ng-click="column.onclick(subItem)">
 								<span ng-class="{'link': !!column.onclick}">{{
-                  cellValue(subItem, column)
-                }}</span>
+									cellValue(subItem, column)
+									}}</span>
 							</span>
 						</span>
 					</span>

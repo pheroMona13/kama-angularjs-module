@@ -33,7 +33,7 @@ export default function kamaAttachment(alertService) {
     scope.obj.uploadButtonText = scope.obj.uploadButtonText || 'بارگذاری';
     scope.obj.defaultStateHTML =
       scope.obj.defaultStateHTML ||
-      'هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span style="color: #337ab7">"انتخاب فایل"</span> و سپس دکمه <span style="color: #5cb85c">"بارگذاری"</span> را بزنید.';
+      'هیچ فایلی انتخاب نشده است. برای بارگذاری فایل ابتدا دکمه <span class="browse-text">"انتخاب فایل"</span> و سپس دکمه <span class="upload-text">"بارگذاری"</span> را بزنید.';
 
     scope.obj.successUpload = null;
     scope.obj.validTypes = scope.obj.validTypes || [

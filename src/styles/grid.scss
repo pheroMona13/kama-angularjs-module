@@ -8,10 +8,20 @@
     padding: 0;
     border-radius: 4px 4px 0 0;
 
-    a:hover {
-        color: #FFF;
-        font-weight: bold;
-    }
+    a {
+		text-decoration: none;
+		color: #e0e3e6;
+
+		&:hover {
+			color: #FFF;
+			font-weight: bold;
+		}
+
+		i {
+			position: relative;
+			top: 2px;
+		}
+	}
 }
 
 .kama-grid-bottom {
@@ -74,6 +84,10 @@
 
         th {
             white-space: nowrap;
+
+			&:first-child {
+				width: 70px;
+			}
         }
 
         td {

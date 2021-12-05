@@ -1,3 +1,3 @@
-<select class="form-control kama-select" style="width: 100%" ng-options="item[customDisplayName] for item in obj.items track by item.ID"
-    ng-model="selected" ng-change="change(true)" ng-disabled="obj.checkDisability && obj.checkDisability()" multiple>
+<select class="form-control kama-select" ng-options="item[customDisplayName] for item in obj.items track by item.ID"
+	ng-model="selected" ng-change="change(true)" ng-disabled="obj.checkDisability && obj.checkDisability()" multiple>
 </select>

@@ -1,6 +1,6 @@
-﻿<select class="form-control kama-select" style="width: 100%" ng-options="item[customDisplayName] for item in obj.items"
-    ng-model="selected" ng-change="change(true)" ng-disabled="obj.checkDisability && obj.checkDisability()">
-    <option value="" selected="selected"></option>
+﻿<select class="form-control kama-select" ng-options="item[customDisplayName] for item in obj.items" ng-model="selected"
+	ng-change="change(true)" ng-disabled="obj.checkDisability && obj.checkDisability()">
+	<option value="" selected="selected"></option>
 </select>
 
 <select class="form-control kama-lazyselect"></select>

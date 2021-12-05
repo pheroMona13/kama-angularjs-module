@@ -1,0 +1,40 @@
+#grid-sort {
+  table {
+    thead {
+      tr {
+        th {
+          &:first-child {
+            width: 60px;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          &:first-child {
+            i {
+              &.fa-arrow-up {
+                cursor: pointer;
+                margin-left: 3px;
+
+                &.disable {
+                  color: lightgray;
+                }
+              }
+
+              &.fa-arrow-down {
+                cursor: pointer;
+
+                &.disable {
+                  color: lightgray;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

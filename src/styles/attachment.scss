@@ -15,6 +15,10 @@
             margin-left: 10px;
         }
     }
+
+	input {
+		display: none;
+	}
 }
 
 .attachment-link {
@@ -41,6 +45,14 @@
 .attachment-state {
     display: block;
     margin-top: 10px;
+
+	.upload-text {
+		color: #5cb85c;
+	}
+
+	.browse-text {
+		color: #337ab7;
+	}
 
     .fa-hourglass-end {
         position: relative;
